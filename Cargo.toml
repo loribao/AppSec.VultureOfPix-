@@ -1,0 +1,3 @@
+[workspace]
+members = ["src/appsec-server/AppSec.FiiInfra"]
+resolver = "2"

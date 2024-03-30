@@ -1,0 +1,7 @@
+.*
+docs
+target
+.env
+.env.*
+*.yaml
+*.md

@@ -1,0 +1,58 @@
+@AppSec_HostAddress = http://localhost:5048
+@authorization_token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzdWIiOiJhZG1pbiIsInVuaXF1ZV9uYW1lIjoiYWRtaW4iLCJyb2xlIjoiZGVmYXVsdCIsIm5iZiI6MTcxMTY3MjA3MSwiZXhwIjoxNzEyMjc2ODcxLCJpYXQiOjE3MTE2NzIwNzF9.6h2XHm67dnwfrnHWqbYbtt6F85khYBc8xvSzpMXvJw4
+### Ping
+GET  {{AppSec_HostAddress}}/ping
+Authorization: {{authorization_token}}
+
+###
+
+### Criação de um novo projeto
+POST  {{AppSec_HostAddress}}/api/project/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "appdemo-test4",
+  "description": "teste",
+  "urlGit": "https://github.com/loribao/app_demo_dotnet_elasticagent_sonar",
+  "branchGit": "develop",
+  "userRepository": "loribao",
+  "emailRepository": "loribao@hotmail.com",
+  "urlSast": "http://localhost:9000",
+  "userSast": "admin",
+  "passwordSast": "sonar",
+  "urlDast": "http://localhost:8080/",
+  "userDast": "userDast",
+  "passwordDast": "passwordDast",
+  "language": 0
+}
+###
+
+### Listar Projetos
+GET   {{AppSec_HostAddress}}/api/project/
+Accept: application/json
+###
+
+### Iniciar analise SAST
+POST {{AppSec_HostAddress}}/api/sast/start
+Accept: application/json
+Content-Type: application/json
+
+{
+  "projectId": 1,
+  "sonartoken":"squ_a29ab0df8c4f9d29b42af148baada37ec2b2bb93"
+}
+###
+
+### Iniciar analise DAST
+POST {{AppSec_HostAddress}}/api/dast/start
+Accept: application/json
+Content-Type: application/json
+
+{
+  "ProjectId": 1,
+  "TargetUrl": "http://0.0.0.0:4000/ping",
+  "DastToken": "3viq4q3fh0lrvspjkc9ursg14s",
+  "DastUrlApi": "http://localhost:8080"
+}
+###

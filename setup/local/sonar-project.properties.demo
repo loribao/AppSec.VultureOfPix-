@@ -1,0 +1,12 @@
+sonar.projectKey=appsec
+
+sonar.projectName=appsec
+#sonar.projectVersion=1.0
+#
+sonar.sources=.
+sonar.exclusions=**/target/**
+sonar.language=rust
+#
+sonar.sourceEncoding=UTF-8
+community.rust.clippy.reportPaths=target/debug/report.json
+

@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS buildbase
+WORKDIR /src
+RUN apt update && apt install -y openjdk-17-jre git
+RUN dotnet tool install --global dotnet-sonarscanner
+RUN git clone https://github.com/loribao/app_demo_dotnet_elasticagent_sonar . && git checkout develop
+RUN git pull &&\
+    cd test/AppDemo.UnitTesting &&\
+    dotnet add package coverlet.msbuild
+
+FROM buildbase AS sonar
+WORKDIR /src
+EXPOSE 4000
+ENV PATH="${PATH}:/root/.dotnet/tools"
+CMD ls -la && echo $SONAR_PROJECT_TOKEN $SONAR_PROJECT_KEY $SONAR_HOST_URL &&\
+    git pull && dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover &&\
+    dotnet sonarscanner begin /k:$SONAR_PROJECT_KEY /d:sonar.host.url=$SONAR_HOST_URL  /d:sonar.token=$SONAR_PROJECT_TOKEN /d:sonar.cs.opencover.reportsPaths="test/**/coverage.opencover.xml" &&\
+    dotnet build &&\
+    dotnet sonarscanner end /d:sonar.token=$SONAR_PROJECT_TOKEN &&\
+    echo "SonarQube analysis completed" &&\
+    dotnet run --project src/AppDemo.Server/AppDemo.Server.csproj --urls=http://0.0.0.0:4000/

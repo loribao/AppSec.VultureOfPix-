@@ -1,0 +1,19 @@
+.vscode
+target
+cache
+scripts
+.scannerwork
+docs/.*
+dist
+dist/**
+appsec-desktop-*
+**/bin
+**/obj
+**/.idea
+docs/proposal/.~lock.Atualização Vulture.odt#
+/.vs/appsec/v17
+/.vs/appsec
+.vs
+.idea
+.database
+.temp
