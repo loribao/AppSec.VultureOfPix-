@@ -1,0 +1,9 @@
+body {
+    background-color: #28243d;
+    font-family: "Inter", sans-serif;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
