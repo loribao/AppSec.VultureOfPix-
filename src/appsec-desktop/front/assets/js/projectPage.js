@@ -52,3 +52,25 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownContent.style.display === "block" ? "none" : "block";
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    document
+        .getElementById("showMenuBtn")
+        .addEventListener("click", function () {
+            document
+                .querySelector(".mainMenuContainer")
+                .classList.remove("hidden");
+            document.getElementById("hideMenuBtn").classList.remove("hidden");
+            this.classList.add("hidden");
+        });
+
+    document
+        .getElementById("hideMenuBtn")
+        .addEventListener("click", function () {
+            document
+                .querySelector(".mainMenuContainer")
+                .classList.add("hidden");
+            document.getElementById("showMenuBtn").classList.remove("hidden");
+            this.classList.add("hidden");
+        });
+});

@@ -1,6 +1,10 @@
-:root{
-  --font-color-primary: #ffff;
-  --font-color-secondary: #;
-  --background-color-primary: #28243d;
-  --background-color-secondary: #312d4b;
+:root {
+    --background-color-header: HSL(0, 0%, 5%);
+    --background-color-primary: #28243d;
+    --background-color-secondary: #312d4b;
+    --background-color-terciario: #483f78;
+    --color-title-um: HSL(0, 0%, 100%);
+    --box-shadow-primary: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --box-shadow-secondary: 0 6px 12px rgba(0, 0, 0, 0.2);
+    --contrast-color: #6abf69;
 }

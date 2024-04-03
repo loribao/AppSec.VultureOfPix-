@@ -2,137 +2,179 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/global.css">
-  <script src="./assets/js/projectPage.js"></script>
-  <title>Projetos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <script src="./assets/js/projectPage.js"></script>
+    <title>Projetos</title>
 </head>
-<header class="headerContainer">
-  <a class="logo" href="./"><img src="./assets/img/logo.svg" alt=""></a>
-  <nav class="navContainer">
-    <div class="avatarContainer" id="avatarDropdown">
-      <div class="avatar">
-        <a href="#"><img src="./assets/img/avatar.svg" alt=""></a>
-      </div>
-      <div class="dropDownContent">
-        <a href="#">Meu Perfil</a>
-        <a href="#">Alterar Senha</a>
-        <a href="#">Sair</a>
-      </div>
-    </div>
-  </nav>
-</header>
-<main class="mainContainer">
-  <article class="articleHeader">
-    <h1 class="titleTwo">Meus Projetos</h1>
-    <a id="openForm" class="newProject" href="#">Novo Projeto</a>
-    <div id="formPopOut" class="formpopout">
-      <form class="formContainer">
-        <input type="text" placeholder="Nome do Projeto">
-        <input type="text" placeholder="Descrição do Projeto">
-        <input type="text" placeholder="URL do Git">
-        <input type="text" placeholder="Branch do Git">
-        <input type="text" placeholder="Usuário do Repositório">
-        <input type="text" placeholder="Email do Repositório">
-        <input type="email" placeholder="URL do Sast">
-        <input type="email" placeholder="Usuário do Sast">
-        <input type="email" placeholder="Senha do Sast">
-        <input type="email" placeholder="URL do Dast">
-        <input type="email" placeholder="Usuário do Dast">
-        <input type="email" placeholder="Senha do Dast">
-        <div class="dropdown">
-          <button class="dropbtn" onclick="toggleDropdown()">Selecione uma Linguagem</button>
-          <div class="dropdownContent" id="dropdownContent">
-            <a href="#">JavaScript</a>
-            <a href="#">Python</a>
-            <a href="#">Java</a>
-            <a href="#">C++</a>
-            <a href="#">C#</a>
-            <a href="#">PHP</a>
-            <a href="#">Ruby</a>
-            <a href="#">Swift</a>
-            <a href="#">Kotlin</a>
-            <a href="#">Go (Golang)</a>
-            <a href="#">HTML</a>
-            <a href="#">CSS</a>
-            <a href="#">R</a>
-            <a href="#">SQL</a>
-            <a href="#">TypeScript</a>
-            <a href="#">Scala</a>
-            <a href="#">Perl</a>
-            <a href="#">Lua</a>
-            <a href="#">Objective-C</a>
-            <a href="#">Assembly</a>
-            <a href="#">Dart</a>
-            <a href="#">Rust</a>
-            <a href="#">Haskell</a>
-            <a href="#">Swift</a>
-            <a href="#">Groovy</a>
-            <a href="#">Clojure</a>
-          </div>
-          <div class="buttons">
-            <button class="submit" type="submit">Enviar Projeto</button>
-            <button class="close" id="closeForm">Fechar</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </article>
-  <article class="articleContainer">
-    <article class="articleItem">
-      <h3>Projeto 1</h3>
-      <div class="articleLink">
-        <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
-      </div>
-    </article>
-    <article class="articleItem">
-      <h3>Projeto 2</h3>
-      <div class="articleLink">
-        <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
-      </div>
-    </article>
-    <article class="articleItem">
-      <h3>Projeto 3</h3>
-      <div class="articleLink">
-        <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
-      </div>
-    </article>
-    <article class="articleItem">
-      <h3>Projeto 4</h3>
-      <div class="articleLink">
-        <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
-      </div>
-    </article>
-    <article class="articleItem">
-      <h3>Projeto 5</h3>
-      <div class="articleLink">
-        <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
-      </div>
-    </article>
-    <article class="articleItem">
-      <h3>Projeto 5</h3>
-      <div class="articleLink">
-        <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
-        <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
-      </div>
-    </article>
-  </article>
-</main>
 
 <body>
-
+    <header class="headerContainer">
+        <a class="logo" href="#"><img src="./assets/img/logo.svg" alt=""></a>
+        <nav class="navContainer">
+            <div class="avatarContainer" id="avatarDropdown">
+                <div class="avatar">
+                </div>
+                <div class="dropDownContent">
+                    <a href="#">Meu Perfil</a>
+                    <a href="#">Alterar Senha</a>
+                    <a href="#">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="mainContainer">
+        <article class="articleHeader">
+            <h1 class="titleTwo">Meus Projetos</h1>
+            <a id="openForm" class="newProject" href="#">Novo Projeto</a>
+            <div id="formPopOut" class="formpopout">
+                <form class="formContainer">
+                    <h1 class="titleTwo">Formulário</h1>
+                    <input type="text" placeholder="Nome do Projeto">
+                    <input type="text" placeholder="Descrição do Projeto">
+                    <input type="text" placeholder="URL do Git">
+                    <input type="text" placeholder="Branch do Git">
+                    <input type="text" placeholder="Usuário do Repositório">
+                    <input type="text" placeholder="Email do Repositório">
+                    <input type="email" placeholder="URL do Sast">
+                    <input type="email" placeholder="Usuário do Sast">
+                    <input type="email" placeholder="Senha do Sast">
+                    <input type="email" placeholder="URL do Dast">
+                    <input type="email" placeholder="Usuário do Dast">
+                    <input type="email" placeholder="Senha do Dast">
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="toggleDropdown()">Selecione uma Linguagem</button>
+                        <div class="dropdownContent" id="dropdownContent">
+                            <a href="#">JavaScript</a>
+                            <a href="#">Python</a>
+                            <a href="#">Java</a>
+                            <a href="#">C++</a>
+                            <a href="#">C#</a>
+                            <a href="#">PHP</a>
+                            <a href="#">Ruby</a>
+                            <a href="#">Swift</a>
+                            <a href="#">Kotlin</a>
+                            <a href="#">Go (Golang)</a>
+                            <a href="#">R</a>
+                            <a href="#">TypeScript</a>
+                            <a href="#">Scala</a>
+                            <a href="#">Perl</a>
+                            <a href="#">Lua</a>
+                            <a href="#">Assembly</a>
+                            <a href="#">Dart</a>
+                            <a href="#">Rust</a>
+                            <a href="#">Swift</a>
+                        </div>
+                        <div class="buttons">
+                            <button class="submit" type="submit">Enviar Projeto</button>
+                            <button class="close" id="closeForm">Fechar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </article>
+        <article class="articleContainer">
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+            <article class="articleItem">
+                <h3>Projeto</h3>
+                <div class="articleLink">
+                    <a href="./"><img src="./assets/img/edit.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/trash.svg" alt=""></a>
+                    <a href="./"><img src="./assets/img/pull.svg" alt=""></a>
+                </div>
+            </article>
+        </article>
+    </main>
+    <footer>
+        <div class="mainMenuContainer">
+            <a class="logoMenu" href="#"></a>
+            <a class="logoMenu" href="#"></a>
+            <a class="logoMenu" href="#"></a>
+            <a class="logoMenu" href="#"></a>
+        </div>
+        <button class="buttonMenu" id="showMenuBtn"><img class="arrowUp" src="./assets/img/arrowDown.svg" alt=""></button>
+        <button class="buttonMenu" id="hideMenuBtn" class="hidden"><img class="arrowDown" src="./assets/img/arrowDown.svg" alt=""></button>
+    </footer>
 </body>
 
 </html>
