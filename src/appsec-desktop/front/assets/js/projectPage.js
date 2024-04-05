@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     var openFormLink = document.getElementById("openForm");
-    var formPopOut = document.getElementById("formPopOut");
+    var formPopOut = document.getElementById("menuSidebar");
     var closeFormButton = document.getElementById("closeForm");
 
     function openFormPopOut() {
-        formPopOut.style.display = "block";
+        formPopOut.classList.add("open");
     }
 
     function closeFormPopOut() {
-        formPopOut.style.display = "none";
+        formPopOut.classList.remove("open");
     }
 
     openFormLink.addEventListener("click", openFormPopOut);
@@ -24,26 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownContent.classList.remove("show");
         });
     });
-});
 
-function toggleDropdown() {
-    var dropdownContent = document.getElementById("dropdownContent");
-    dropdownContent.classList.toggle("show");
-}
-
-window.onclick = function (event) {
-    if (!event.target.matches(".dropbtn")) {
-        var dropdowns = document.getElementsByClassName("dropdownContent");
-        for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains("show")) {
-                openDropdown.classList.remove("show");
-            }
-        }
-    }
-};
-
-document.addEventListener("DOMContentLoaded", function () {
     var avatarDropdown = document.getElementById("avatarDropdown");
     var dropdownContent = avatarDropdown.querySelector(".dropDownContent");
 
@@ -51,26 +32,68 @@ document.addEventListener("DOMContentLoaded", function () {
         dropdownContent.style.display =
             dropdownContent.style.display === "block" ? "none" : "block";
     });
+
+    $("#showMenuBtn").click(function () {
+        $(".mainMenuContainer").removeClass("hidden");
+        $("#hideMenuBtn").removeClass("hidden");
+        $(this).addClass("hidden");
+    });
+
+    $("#hideMenuBtn").click(function () {
+        $(".mainMenuContainer").addClass("hidden");
+        $("#showMenuBtn").removeClass("hidden");
+        $(this).addClass("hidden");
+    });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    document
-        .getElementById("showMenuBtn")
-        .addEventListener("click", function () {
-            document
-                .querySelector(".mainMenuContainer")
-                .classList.remove("hidden");
-            document.getElementById("hideMenuBtn").classList.remove("hidden");
-            this.classList.add("hidden");
-        });
+    var dropdownItems = document.querySelectorAll(".dropdownContent a");
 
-    document
-        .getElementById("hideMenuBtn")
-        .addEventListener("click", function () {
-            document
-                .querySelector(".mainMenuContainer")
-                .classList.add("hidden");
-            document.getElementById("showMenuBtn").classList.remove("hidden");
-            this.classList.add("hidden");
+    dropdownItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+            var dropbtn = document.querySelector(".dropbtn");
+            dropbtn.textContent = this.textContent;
+            var dropdownContent = document.querySelector(".dropdownContent");
+            dropdownContent.classList.remove("show");
         });
+    });
+
+    var dropbtn = document.querySelector(".dropbtn");
+    var dropdownContent = document.querySelector(".dropdownContent");
+
+    dropbtn.addEventListener("click", function () {
+        dropdownContent.classList.toggle("show");
+        var rect = dropbtn.getBoundingClientRect();
+        dropdownContent.style.bottom = window.innerHeight - rect.top + "px"; // Ajuste aqui
+    });
+
+    // Fechar o dropdown ao clicar fora dele
+    window.addEventListener("click", function (event) {
+        if (!event.target.matches(".dropbtn")) {
+            var dropdowns = document.querySelectorAll(".dropdownContent");
+            dropdowns.forEach(function (dropdown) {
+                if (dropdown.classList.contains("show")) {
+                    dropdown.classList.remove("show");
+                }
+            });
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    var showMenuBtn = document.getElementById("showMenuBtn");
+    var hideMenuBtn = document.getElementById("hideMenuBtn");
+    var mainMenuContainer = document.querySelector(".mainMenuContainer");
+
+    showMenuBtn.addEventListener("click", function () {
+        mainMenuContainer.classList.remove("hidden");
+        hideMenuBtn.classList.remove("hidden");
+        showMenuBtn.classList.add("hidden");
+    });
+
+    hideMenuBtn.addEventListener("click", function () {
+        mainMenuContainer.classList.add("hidden");
+        hideMenuBtn.classList.add("hidden");
+        showMenuBtn.classList.remove("hidden");
+    });
 });

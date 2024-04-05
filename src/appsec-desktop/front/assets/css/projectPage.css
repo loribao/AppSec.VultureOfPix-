@@ -2,36 +2,39 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--background-color-header);
+    background-color: var(--background-color-primary);
     padding: 20px 50px;
 }
 
 .logo {
-    max-width: 200px;
+    max-width: 150px;
 }
 
 .avatarContainer {
-    border-radius: 100%;
-    width: 50px;
-    height: 50px;
+    border-radius: 10px;
+    width: 45px;
+    height: 45px;
 }
 
 .avatar {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 10px;
     background-image: url("../img/avatar.png");
     background-size: cover;
     cursor: pointer;
 }
 
-.titleTwo {
-    color: var(--color-title-um);
+.title {
+    color: var(--color-title-two);
     font-size: 2.25rem;
     font-weight: 900;
 }
 
 .articleHeader {
+    background-color: var(--background-color-secondary);
+    border-radius: 10px 10px 0 0;
+    padding: 0 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -40,13 +43,14 @@
 
 .newProject {
     text-decoration: none;
-    background-color: var(--background-color-secondary);
-    border-radius: 4px;
-    padding: 10px 30px;
+    background-color: var(--background-color-quartenario);
+    border-radius: 10px;
+    padding: 15px 30px;
     font-size: 1rem;
-    color: var(--color-title-um);
+    color: var(--color-title-two);
+    font-weight: 600;
     border: none;
-    box-shadow: var(--box-shadow-primary);
+    box-shadow: var(--border-box-primary);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -60,7 +64,7 @@
     width: calc(100% + 10px);
     height: calc(100% + 10px);
     border: 2px solid transparent;
-    border-radius: 6px;
+    border-radius: 10px;
     animation: rotateBorder 5s linear infinite;
 }
 
@@ -77,21 +81,23 @@
     transform: scale(1.05);
     box-shadow: var(--box-shadow-secondary);
     background-color: var(--background-color-terciario);
-    color: var(--color-title-um);
+    color: var(--color-title-two);
 }
 
 .mainContainer {
-    max-width: 1440px;
     margin: 0 auto;
+    padding: 0 20px;
     background-color: var(--background-color-primary);
+    position: relative;
 }
 
 .articleContainer {
-    border-radius: 4px;
-    padding: 5px 15px;
-    margin-bottom: 20px;
+    border-radius: 0 0 10px 10px;
+    padding: 20px;
+    position: relative;
     background-color: var(--background-color-secondary);
-    box-shadow: var(--box-shadow-primary);
+    box-shadow: var(--border-box-primary);
+    margin-bottom: 20px;
 }
 
 .articleItem {
@@ -100,8 +106,8 @@
     justify-content: space-between;
     margin: 10px 0px;
     padding: 0px 25px;
-    border: 1px solid hsl(250, 81%, 94%);
-    border-radius: 2px;
+    border: 1px solid var(--border-box-primary);
+    border-radius: 10px;
     transition: background-color 0.3s ease;
 }
 
@@ -110,7 +116,7 @@
 }
 
 .articleItem h3 {
-    color: var(--color-title-um);
+    color: var(--color-title-two);
     font-size: 1rem;
     font-weight: 400;
 }
@@ -128,23 +134,30 @@
 .close {
     text-decoration: none;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 10px 30px;
     font-size: 1rem;
-    color: var(--color-title-um);
+    color: var(--color-title-two);
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease,
         color 0.3s ease;
+    flex-grow: 1;
+    max-width: 300px;
 }
 
 .submit {
-    background-color: var(--background-color-secondary);
-    box-shadow: var(--box-shadow-primary);
+    background-color: var(--background-color-quartenario);
+    color: var(--color-title-two);
+    box-shadow: var(--border-box-primary);
+    font-weight: 600;
 }
 
 .close {
-    background-color: var(--background-color-terciario);
-    box-shadow: var(--box-shadow-primary);
+    background-color: var(--background-color-primary);
+    border: 1px solid var(--border-box-secondary);
+    color: var(--color-title-three);
+    font-weight: 600;
+    box-shadow: var(--border-box-primary);
 }
 
 .submit:hover,
@@ -166,6 +179,7 @@
 .buttons {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 20px;
 }
 
@@ -177,44 +191,45 @@
     transform: translate(-50%, -50%);
     background-color: var(--background-color-primary);
     padding: 20px;
-    border: 1px solid var(--color-title-um);
-    max-height: 90%;
+    border: 1px solid var(--border-box-primary);
     overflow-y: auto;
     align-items: center;
-    border-radius: 4px;
-    box-shadow: var(--box-shadow-primary);
+    border-radius: 10px;
+    box-shadow: var(--border-box-primary);
     z-index: 9999;
-    width: 40%;
+    width: 80vw;
+    height: 80vh;
 }
 
 .dropbtn {
-    background-color: var(--background-color-secondary);
-    color: var(--color-title-um);
-    padding: 10px;
+    background-color: var(--background-color-primary);
+    color: var(--color-title-one);
     font-size: 1rem;
     border: none;
     cursor: pointer;
-}
-
-.dropdown {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .dropdownContent {
     display: none;
-    position: fixed;
+    position: absolute;
     background-color: var(--background-color-primary);
     min-width: 300px;
-    box-shadow: var(--box-shadow-primary);
+    box-shadow: var(--border-box-primary);
     z-index: 1;
-    max-height: 200px;
     overflow-y: auto;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: calc(100% + 10px);
+    transform-origin: top;
+    max-height: 400px;
 }
 
 .dropdownContent a {
-    color: var(--color-title-um);
+    color: var(--color-title-one);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -231,8 +246,8 @@
 }
 
 .dropdownContent::-webkit-scrollbar-thumb {
-    background-color: var(--color-title-um);
-    border-radius: 20px;
+    background-color: var(--color-title-one);
+    border-radius: 10px;
 }
 
 .show {
@@ -245,8 +260,8 @@
 }
 
 .formpopout::-webkit-scrollbar-thumb {
-    background-color: var(--color-title-um);
-    border-radius: 20px;
+    background-color: var(--color-title-one);
+    border-radius: 10px;
 }
 
 .formContainer {
@@ -254,39 +269,52 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    position: relative;
 }
 
 .formContainer input {
-    color: var(--color-title-um);
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: var(--color-title-two);
     background-color: var(--background-color-secondary);
-    border: 1px solid var(--color-title-um);
-    box-shadow: var(--box-shadow-primary);
+    border: 1px solid var(--border-box-primary);
+    box-shadow: var(--border-box-primary);
     text-align: center;
-    padding: 10px 0px;
+    padding: 15px 0px;
     font-size: 1rem;
     width: 100%;
+    border-radius: 10px;
 }
 
-.dropBtn {
-    color: var(--color-title-um);
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+.formContainer input:focus {
+    outline: none;
+    border-color: var(--background-color-quartenario);
+    color: transparent;
 }
 
-.dropDown {
-    position: relative;
-    display: inline-block;
+.formContainer input::placeholder {
+    color: var(--color-title-one);
+    position: absolute;
+    bottom: 20;
+    left: 20px;
+    transition: transform 0.3s ease;
+}
+
+.formContainer input:focus::placeholder {
+    transform: translateY(-200%);
+}
+
+.dropdown {
+    width: 100%;
 }
 
 .dropDownContent {
     margin: 10px 20px;
     display: none;
-    position: absolute;
+    position: fixed;
     background-color: var(--background-color-primary);
     min-width: 160px;
-    box-shadow: var(--box-shadow-primary);
+    box-shadow: var(--border-box-primary);
     z-index: 1;
     max-height: 200px;
     overflow-y: auto;
@@ -296,7 +324,7 @@
 }
 
 .dropDownContent a {
-    color: var(--color-title-um);
+    color: var(--color-title-one);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -307,17 +335,17 @@
     background-color: var(--background-color-secondary);
 }
 
-footer {
+.menuDock {
     position: fixed;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 300px;
-    background-color: var(--background-color-primary);
-    border: 1px solid var(--color-title-um);
-    border-radius: 4px;
-    padding: 10px 0;
+    background-color: var(--background-color-secondary);
+    border: 1px solid var(--border-box-primary);
+    border-radius: 10px;
+    padding: 10px 20px;
 }
 
 .mainMenuContainer {
@@ -328,8 +356,7 @@ footer {
 
 .logoMenu {
     background-color: var(--background-color-secondary);
-    border: 1px solid var(--color-title-um);
-    border-radius: 4px;
+    border-radius: 10px;
     margin: 0 10px;
     width: 50px;
     height: 50px;
@@ -339,7 +366,7 @@ footer {
 }
 
 .logoMenu:hover {
-    border: 5px solid var(--contrast-color);
+    outline: 5px solid var(--contrast-color);
 }
 
 .hidden {
@@ -348,23 +375,102 @@ footer {
 
 .arrowDown {
     max-width: 30px;
-    transform: rotate(90deg);
 }
 
 .arrowUp {
+    transform: rotate(180deg);
     max-width: 30px;
 }
 
 .buttonMenu {
-    background-color: var(--background-color-primary);
-    border: 1px solid var(--color-title-um);
-    border-radius: 4px;
+    background-color: var(--background-color-secondary);
+    border: 1px solid var(--border-box-primary);
+    border-radius: 10px;
     position: absolute;
-    right: -60px;
-    bottom: 0px;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
     transition: background-color 0.3s ease;
 }
 
 .buttonMenu:hover {
     background-color: var(--background-color-secondary);
+}
+
+.footerContainer {
+    height: 100%;
+    background-color: var(--background-color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px 50px;
+}
+
+.footerLinks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.footerLinks li {
+    list-style: none;
+}
+
+.footerLinks li a {
+    text-decoration: none;
+    color: var(--color-title-one);
+    font-weight: 600;
+}
+
+.footerContainer p {
+    color: var(--color-title-one);
+    font-weight: 600;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 500px; /* Largura padrão da barra lateral */
+    max-height: 100vh;
+    background-color: var(--background-color-secondary);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+    transform: translateX(100%);
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.closeSidebar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.closeSidebar img {
+    max-width: 30px;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.sidebar .formContainer,
+.sidebar .dropDownContent {
+    max-width: 100%;
+    padding: 20px;
+}
+
+.mainContainer.open-sidebar,
+.articleContainer.open-sidebar {
+    position: fixed; /* Fixa o conteúdo principal */
+    width: calc(100% - 300px); /* Reduz a largura quando a barra lateral está aberta */
 }

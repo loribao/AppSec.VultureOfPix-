@@ -1,2 +1,17 @@
-@media {
+@media (max-width: 900px) {
+    .articleHeader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .title{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Define a largura como 100% */
+        max-width: 100%; /* Define a largura máxima como 100% */
+    }
 }
