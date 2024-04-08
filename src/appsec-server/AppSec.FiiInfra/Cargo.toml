@@ -8,7 +8,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-
+zap_api = "*"
 
 
 [build-dependencies]

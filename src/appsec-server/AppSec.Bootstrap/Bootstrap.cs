@@ -94,7 +94,9 @@ public static class Register
          });
         Services
             .AddGraphQLServer()
-            .AddQueryType<QueryRoot>()
+            .AddAuthorization()
+            .AddQueryType<QueryRoot>()            
+            .AddMutationType<MutationRoot>()
             .AddFiltering();
         return Services;
     }
