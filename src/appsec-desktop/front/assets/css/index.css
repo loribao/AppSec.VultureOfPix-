@@ -1,0 +1,197 @@
+.imageLogin,
+.personagemLogin,
+.tree,
+.rectangle {
+    display: block;
+}
+
+.imageLogin {
+    max-width: 100%;
+    padding: 40px 50px;
+}
+
+.personagemLogin {
+    width: 70%;
+    max-width: 600px;
+}
+
+.personagemLogin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.tree {
+    width: 20%;
+    max-width: 150px;
+    position: fixed;
+    bottom: 20px;
+}
+
+.mainLoginContainer {
+    display: flex;
+    position: relative;
+    height: 100vh;
+}
+
+.logoLogin {
+    max-width: 150px;
+    padding: 40px 50px;
+}
+
+.leftSection {
+    flex: 2;
+    background-color: var(--background-color-primary);
+    z-index: -2;
+    position: relative;
+}
+
+.rightSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    flex: 1.25;
+    background-color: var(--background-color-secondary);
+    max-width: 100%;
+}
+
+.rectangle {
+    position: fixed;
+    width: 100vw;
+    height: 70vh;
+    bottom: -200px;
+    right: 50px;
+    background-color: var(--background-color-quinzenario);
+    transform: rotate(-10deg);
+    z-index: -1;
+}
+
+.titleUm {
+    margin: 0;
+    color: var(--color-title-two);
+    font-size: 1.5rem;
+}
+
+.paragrafoPrincipal {
+    margin: 5px 0;
+}
+
+.paragrafo {
+    color: var(--color-title-four);
+}
+
+.formLoginContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.inputLogin {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: var(--color-title-two);
+    background-color: var(--background-color-primary);
+    border: 1px solid var(--border-box-primary);
+    box-shadow: var(--border-box-primary);
+    text-align: center;
+    padding: 15px 0px;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.inputLogin:focus {
+    outline: none;
+    border-color: var(--background-color-quartenario);
+    color: transparent;
+}
+
+.inputLogin::placeholder {
+    color: var(--color-title-one);
+    position: absolute;
+    bottom: 20;
+    left: 20px;
+    transition: transform 0.3s ease;
+}
+
+.inputLogin:focus::placeholder {
+    transform: translateY(-200%);
+}
+
+.footerLoginContainer, .divLoginUm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.buttonLogin {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-title-two);
+    background-color: var(--contrast-color);
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    max-width: 100%;
+}
+
+.buttonLogin:hover {
+    background-color: var(--contrast-color-two);
+}
+
+.linkLogin{
+    text-decoration: none;
+    color: var(--contrast-color);
+    font-weight: 400;
+}
+
+.checkboxLoginContainer {
+    display: flex;
+    align-items: center;
+}
+
+.checkboxLogin {
+    display: none;
+}
+
+.custom-checkbox {
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-title-two);
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.checkboxLogin:checked + .custom-checkbox::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--contrast-color);
+    border-radius: 2px;
+}
+
+.custom-checkbox:hover {
+    background-color: #f0f0f0;
+}
+
