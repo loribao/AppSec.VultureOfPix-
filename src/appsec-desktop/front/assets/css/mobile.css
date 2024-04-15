@@ -25,9 +25,12 @@
     }
 }
 
-@media screen and (max-width: 900px) {
+@media (max-width: 900px) {
     .mainLoginContainer {
-        flex-direction: column-reverse;
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+        background-color: var(--background-color-secondary);
     }
 
     .leftSection {
@@ -36,29 +39,15 @@
 
     .rightSection {
         flex: 1;
-        padding: 20px;
+        padding: 30px;
+        max-width: none;
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    .rightSectionUm {
-        font-size: 1.2rem;
-    }
-
-    .rightSectionUm .titleUm {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-    }
-
-    .formLoginContainer {
-        font-size: 1.1rem;
-    }
-
-    .inputLogin,
-    .buttonLogin {
-        padding: 12px 20px;
-    }
-    .footerLoginContainer{
-        flex-direction: column;
+    .rectangle,
+    .tree,
+    .personagemLogin-container {
+        display: none;
     }
 }
-
-

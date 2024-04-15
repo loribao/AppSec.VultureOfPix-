@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--background-color-primary);
-    padding: 40px 50px;
+    padding: 40px 30px;
 }
 
 .logo {
@@ -472,5 +472,7 @@
 .mainContainer.open-sidebar,
 .articleContainer.open-sidebar {
     position: fixed; /* Fixa o conteúdo principal */
-    width: calc(100% - 300px); /* Reduz a largura quando a barra lateral está aberta */
+    width: calc(
+        100% - 300px
+    ); /* Reduz a largura quando a barra lateral está aberta */
 }

@@ -97,3 +97,39 @@ document.addEventListener("DOMContentLoaded", function () {
         showMenuBtn.classList.remove("hidden");
     });
 });
+
+function togglePasswordVisibility() {
+    var senhaInput = document.getElementById("senhaInput");
+    var passwordToggle = document.querySelector(".passwordToggle");
+
+    if (senhaInput.type === "password") {
+        senhaInput.type = "text";
+        passwordToggle.classList.add("hidePassword");
+    } else {
+        senhaInput.type = "password";
+        passwordToggle.classList.remove("hidePassword");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var emailInput = document.querySelector('input[type="email"]');
+    var passwordInput = document.getElementById("senhaInput");
+
+    emailInput.addEventListener("input", function () {
+        var inputValue = emailInput.value;
+        if (inputValue) {
+            emailInput.style.color = "#ffff";
+        } else {
+            emailInput.style.color = "";
+        }
+    });
+
+    passwordInput.addEventListener("input", function () {
+        var inputValue = passwordInput.value;
+        if (inputValue) {
+            passwordInput.style.color = "#ffff";
+        } else {
+            passwordInput.style.color = "";
+        }
+    });
+});

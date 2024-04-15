@@ -6,8 +6,7 @@
 }
 
 .imageLogin {
-    max-width: 100%;
-    padding: 40px 50px;
+    max-width: 80%;
 }
 
 .personagemLogin {
@@ -41,7 +40,7 @@
 
 .logoLogin {
     max-width: 150px;
-    padding: 40px 50px;
+    padding: 40px 30px;
 }
 
 .leftSection {
@@ -49,15 +48,22 @@
     background-color: var(--background-color-primary);
     z-index: -2;
     position: relative;
+    align-items: center;
+    justify-content: center;
 }
 
 .rightSection {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 30px;
     flex: 1.25;
     background-color: var(--background-color-secondary);
+    max-width: 420px;
+}
+
+.rightSectionUm {
+    width: 100%;
     max-width: 100%;
 }
 
@@ -91,6 +97,7 @@
     flex-direction: column;
     gap: 10px;
     margin-top: 40px;
+    width: 100%;
 }
 
 .inputLogin {
@@ -100,11 +107,12 @@
     background-color: var(--background-color-primary);
     border: 1px solid var(--border-box-primary);
     box-shadow: var(--border-box-primary);
-    text-align: center;
-    padding: 15px 0px;
+    padding: 15px 20px;
     font-size: 1rem;
-    width: 100%;
     border-radius: 10px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .inputLogin:focus {
@@ -125,7 +133,14 @@
     transform: translateY(-200%);
 }
 
-.footerLoginContainer, .divLoginUm {
+.footerLoginContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.divLoginUm {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -139,20 +154,19 @@
     color: var(--color-title-two);
     background-color: var(--contrast-color);
     border: none;
-    padding: 15px 20px;
+    padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
     text-align: center;
-    max-width: 100%;
 }
 
 .buttonLogin:hover {
     background-color: var(--contrast-color-two);
 }
 
-.linkLogin{
+.linkLogin {
     text-decoration: none;
     color: var(--contrast-color);
     font-weight: 400;
@@ -167,6 +181,12 @@
     display: none;
 }
 
+.forgotContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .custom-checkbox {
     margin-right: 10px;
     width: 15px;
@@ -179,19 +199,45 @@
     transition: background-color 0.3s ease;
 }
 
+.checkboxLogin:checked + .custom-checkbox {
+    background-color: var(--contrast-color);
+    border-color: var(--contrast-color);
+}
+
 .checkboxLogin:checked + .custom-checkbox::after {
-    content: "";
+    content: "\2713";
+    font-size: 12px;
+    color: var(--color-title-two);
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    background-color: var(--contrast-color);
-    border-radius: 2px;
+    line-height: 1;
+    font-weight: bold;
 }
 
 .custom-checkbox:hover {
     background-color: #f0f0f0;
 }
 
+.passwordToggleContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.passwordToggle {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    background-image: url("../img/eye.svg");
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+}
+
+.passwordToggle.hidePassword {
+    background-image: url("../img/eyeOff.svg");
+}
