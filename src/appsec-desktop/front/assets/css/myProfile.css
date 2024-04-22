@@ -122,28 +122,27 @@
     gap: 10px;
 }
 
-.containerMyProfileUm h3{
+.containerMyProfileUm h3 {
     color: var(--color-title-two);
     font-weight: 400;
 }
 
-.containerMyProfileUm h4{
+.containerMyProfileUm h4 {
     color: var(--color-title-one);
     font-weight: 400;
     font-size: 0.9rem;
 }
 
-.containerMyProfileUm p{
+.containerMyProfileUm p {
     color: var(--color-title-five);
     font-weight: 400;
     font-size: 0.9rem;
 }
 
-.containerMyProfileUm p strong{
+.containerMyProfileUm p strong {
     color: var(--color-title-six);
 }
 
 #containerSeis {
     grid-column: 2;
 }
-
