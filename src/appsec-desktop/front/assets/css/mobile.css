@@ -23,6 +23,11 @@
     .mainContainerLogin {
         display: block;
     }
+    .footerContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 900px) {
@@ -31,6 +36,12 @@
         height: auto;
         align-items: center;
         background-color: var(--background-color-secondary);
+    }
+
+    .footerLinks {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .leftSection {

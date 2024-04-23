@@ -4,44 +4,43 @@
 
 .profileBanner {
     max-height: 250px;
-    display: block;
     border-radius: 6px;
+}
+
+.mainMyProfileContainer {
+    margin: 0 auto;
+    padding: 0 20px;
+    background-color: var(--background-color-primary);
+    position: relative;
+    max-width: 1211px;
 }
 
 .infoMyProfile {
     background-color: var(--background-color-secondary);
-    height: 150px;
-    display: flex;
     position: relative;
     border-radius: 0px 0px 6px 6px;
     display: grid;
     grid-template-columns: 150px 1fr 150px;
-    padding: 0px 30px;
+    padding: 10px 30px;
 }
 
 .dadosMyProfile {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .dadosContainer {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     color: var(--color-title-one);
 }
 
-.articleMyProfileContainer {
-    display: flex;
-    flex-direction: column;
-    max-width: 1211px;
-    margin: 0 auto;
-}
-
 .imageProfile {
-    width: 135px;
-    height: 129px;
-    background-color: var(--color-title-two);
+    max-width: 135px;
     border-radius: 6px;
+    background-color: var(--color-title-two);
+    padding: 1px;
 }
 
 .nomeMyProfile {

@@ -399,13 +399,12 @@
 }
 
 .footerContainer {
-    height: 100%;
     background-color: var(--background-color-secondary);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
-    padding: 20px 50px;
+    padding: 20px 0px;
 }
 
 .footerLinks {
@@ -413,6 +412,13 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 50px;
+}
+
+.footerButtonLinks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 50px;
 }
 
