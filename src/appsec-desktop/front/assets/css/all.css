@@ -20,3 +20,30 @@ button {
     font-family: "Inter", sans-serif;
     font-weight: 600;
 }
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--background-color-quartenario) var(--background-color-quinzenario);
+}
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--background-color-quartenario) var(--background-color-quinzenario);
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--background-color-quinzenario);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--background-color-quartenario);
+    border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: var(--contrast-color);
+}

@@ -133,3 +133,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    var btnBackToTop = document.getElementById("btnBackToTop");
+
+    window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+            btnBackToTop.classList.remove("hidden");
+        } else {
+            btnBackToTop.classList.add("hidden");
+        }
+    });
+
+    btnBackToTop.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    });
+});
