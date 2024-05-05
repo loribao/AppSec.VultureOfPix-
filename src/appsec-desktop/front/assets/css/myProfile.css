@@ -1,0 +1,147 @@
+.bodyContainer {
+    background-color: var(--background-color-primary);
+}
+
+.profileBanner {
+    max-height: 250px;
+    border-radius: 6px;
+}
+
+.mainMyProfileContainer {
+    margin: 50px auto;
+    padding: 0 20px;
+    background-color: var(--background-color-primary);
+    position: relative;
+    max-width: 1211px;
+}
+
+.infoMyProfile {
+    background-color: var(--background-color-secondary);
+    position: relative;
+    border-radius: 0px 0px 6px 6px;
+    display: grid;
+    grid-template-columns: 150px 1fr 150px;
+    padding: 10px 30px;
+}
+
+.dadosMyProfile {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dadosContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    color: var(--color-title-one);
+}
+
+.imageProfile {
+    max-width: 135px;
+    border-radius: 6px;
+    background-color: var(--color-title-two);
+    padding: 1px;
+}
+
+.nomeMyProfile {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-title-two);
+}
+
+.conectadoButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--color-title-two);
+    background-color: var(--contrast-color);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    width: 150px;
+    height: 40px;
+    gap: 10px;
+}
+
+.conectadoButton:hover {
+    background-color: var(--contrast-color-two);
+}
+
+.conectadoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.conectadoIcon {
+    max-width: 20px;
+}
+
+.iconDados {
+    max-width: 25px;
+}
+
+.dados {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.infoDados {
+    white-space: nowrap;
+}
+
+.conteudoMyProfile {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    max-width: 1211px;
+    margin: 20px auto;
+    border-radius: 6px;
+    gap: 10px;
+}
+
+.backgroundMyProfile {
+    border-radius: 6px;
+    padding: 0px 20px;
+}
+
+.containerMyProfileUm {
+    background-color: var(--background-color-secondary);
+    height: 500px;
+}
+
+.gridContainerMyProfile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.containerMyProfileUm h3 {
+    color: var(--color-title-two);
+    font-weight: 400;
+}
+
+.containerMyProfileUm h4 {
+    color: var(--color-title-one);
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.containerMyProfileUm p {
+    color: var(--color-title-five);
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.containerMyProfileUm p strong {
+    color: var(--color-title-six);
+}
+
+#containerSeis {
+    grid-column: 2;
+}
