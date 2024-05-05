@@ -1,7 +1,7 @@
 .imageLogin,
 .personagemLogin,
 .tree,
-.vultureSvg * g{
+.vultureSvg > img svg > g{
     fill: var(--background-color-primary) !important;
 }
 .rectangle {

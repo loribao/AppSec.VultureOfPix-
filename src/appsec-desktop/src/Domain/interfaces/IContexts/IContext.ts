@@ -23,7 +23,15 @@ export interface IApi {
     put: <ReqBody,ResData>(request: IApiRequest<ReqBody>) => Promise<IApiResponse<ResData>>;
     delete: <ReqBody,ResData>(request: IApiRequest<ReqBody>) => Promise<IApiResponse<ResData>>;
 }
+export interface IStorage {
+   loadStorage<T>(): T;
+   loadStorageAsync<T>(): Promise<T>;
+   save<T>(key: string,value:T):Promise<void>;
+   delete(key: string): Promise<void>;
+   get<T>(key: string): Promise<T>;
+}
 
 export default interface IContext {
     Api: IApi;
+    Store: any;
 }

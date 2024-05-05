@@ -1,4 +1,4 @@
-import { IApi, IApiRequest, IApiResponse } from "../../Domain/interfaces/IContexts/IContext";
+import { IApi, IApiRequest, IApiResponse, IStorage } from "../../Domain/interfaces/IContexts/IContext";
 import IDriver from "../../Domain/interfaces/IDrivers/IDriver";
 
 
@@ -42,10 +42,46 @@ class Api implements IApi {
     }
 }
 
+class Store implements IStorage{
+
+    private storage: [{
+        id: number;
+        key: string;
+        value: any;
+    }];
+    constructor() {
+        this.storage = this.loadStorage();
+    }
+    loadStorage(){
+        const _storage_raw = localStorage.getItem('store');
+        return _storage_raw ? JSON.parse(_storage_raw) : [];
+    }
+    async loadStorageAsync(): Promise<any> {
+        const _storage_raw = localStorage.getItem('store');
+        this.storage = _storage_raw ? JSON.parse(_storage_raw) : [];
+        return this.storage ;
+    }
+   async save<T>(key: string,value:T) {
+        this.storage.push({id: this.storage.length, key, value});
+        localStorage.setItem('store', JSON.stringify(this.storage));
+    }
+    async delete(key: string) {
+        let d = this.storage.map((s) => s.key !== key);
+        localStorage.setItem('store', JSON.stringify(d));
+    }
+    async get<T>(key: string): Promise<T> {
+        let d = this.storage.find((s) => s.key === key)??null;
+        localStorage.setItem('store', JSON.stringify(this.storage));
+        return d as T;
+    }
+}
+
 class WebDriver implements IDriver {
     public Api: IApi;
+    public Store: IStorage;
     constructor() {
         this.Api = new Api();
+        this.Store = new Store();
     }
 
     isDriver(): boolean {

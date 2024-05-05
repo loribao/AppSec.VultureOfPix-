@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import loginimg from '../assets/img/Vulture_Art.svg'
-import '../assets/css/mobile.css'
 import '../assets/css/index.css'
 import {container} from "tsyringe";
 import ILoginCommand from '../../Domain/interfaces/ICommands/ILoginCommand';
