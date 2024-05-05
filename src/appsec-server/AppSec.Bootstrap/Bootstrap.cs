@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using AppSec.Infra.Web.Graphql;
 
+
 namespace AppSec.Bootstrap;
 
 public static class Register
@@ -91,12 +92,12 @@ public static class Register
              {
                  cfg.ConfigureEndpoints(context);
              });
-         });
+         });        
         Services
             .AddGraphQLServer()
             .AddAuthorization()
             .AddQueryType<QueryRoot>()            
-            .AddMutationType<MutationRoot>()
+            .AddMutationType<MutationRoot>()            
             .AddFiltering();
         return Services;
     }

@@ -1,0 +1,18 @@
+{
+    "$schema": "./schemas/desktop-schema.json",
+    "identifier": "default-plugins",
+    "description": "enables the default permissions",
+    "windows": ["main"],
+    "permissions": [
+        {
+          "identifier": "http:default",
+          "allow": ["http://localhost:5048/graphql"],
+          "deny": []
+        },
+        {
+          "identifier": "http:allow-fetch",
+          "allow": ["http://localhost:5048/graphql"],
+          "deny": []
+        }
+      ]
+  }

@@ -1,0 +1,13 @@
+import "reflect-metadata";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./View/routes";
+import Registry from "./Data/bootstraps/Registry";
+new Registry();
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
+);

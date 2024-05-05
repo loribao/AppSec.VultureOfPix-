@@ -6,12 +6,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen()
     .ExtendServicesBootStrap(builder.Configuration);
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMyOrigin",
+        builder => builder.WithOrigins("http://localhost:1420")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowMyOrigin");
 }
 
 app.ExtendWebApplicationBootStrap();

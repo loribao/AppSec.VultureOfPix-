@@ -16,14 +16,14 @@ namespace AppSec.Infra.Data.Repository
 
         public async Task<string?> Authenticate(string user, string pass)
         {
-            if (user == "admin" && pass == "admin")
+            if (user == "admin" && pass == "admin" || user == "admin@admin.com" && pass == "admin")
             {
                 return await generateJwtToken(new User()
                 {
                     FirstName = "Admin",
                     LastName = "Admin",
                     Id = 1,
-                    Username = "admin",
+                    UserLogin = user,
                     Password = "admin"
                 });
             }
@@ -54,8 +54,8 @@ namespace AppSec.Infra.Data.Repository
                 {
                     Subject = new ClaimsIdentity(new[] {
                         new Claim("id", user.Id.ToString()),
-                        new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                        new Claim(ClaimTypes.Name, user.Username),
+                        new Claim(JwtRegisteredClaimNames.Sub, user.UserLogin),
+                        new Claim(ClaimTypes.Name, user.UserLogin),
                         new Claim(ClaimTypes.Role, user.Role??"default")
                     }),
                     Expires = DateTime.UtcNow.AddDays(7),

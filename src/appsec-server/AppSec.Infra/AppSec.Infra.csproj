@@ -20,8 +20,8 @@
         <Target Name="Cargo" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug' ">
             <Exec Command="cargo build --target-dir $(OutDir)"></Exec>            
         </Target>
-        <Target Name="Cargo" AfterTargets="Clean" >
-            <Exec Command="cargo clean --target-dir $(OutDir)" ></Exec>
+        <Target Name="Cargo" AfterTargets="Clean">
+            <Exec Command="cargo clean --target-dir $(OutDir)"></Exec>
         </Target>
     <ItemGroup>
         <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.0" />

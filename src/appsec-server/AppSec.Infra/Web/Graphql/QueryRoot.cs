@@ -19,6 +19,7 @@ public class QueryRoot
     public IQueryable<RepoEntity> GetRepositorys([Service] ContextAppSec db) => db.Repos.AsQueryable();
     [UseFiltering]
     public IQueryable<RepoCommitEntity> GetRepoCommits([Service] ContextAppSec db) => db.RepoCommits.AsQueryable();
-    
+
+    [AllowAnonymous]
     public string Ping() => "Pong";
 }
