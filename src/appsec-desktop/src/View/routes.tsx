@@ -6,7 +6,7 @@ import Projeto from "./pages/Projects";
 export const router = createBrowserRouter([
     {
       path: "/",
-      element: <App><Login /></App>,
+      element: <App><Projeto /></App>,
     },
     {
         path: "/projectPage",
