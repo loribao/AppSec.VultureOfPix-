@@ -1,14 +1,63 @@
-import "../assets/css/projectPage.css"
+import React, { useState, useEffect, useRef } from "react";
+import { Header } from "../components/Header";
+import "./Projects.css"
+import edit from "../assets/img/edit.svg";
+import trash from "../assets/img/trash.svg";
+import pull from "../assets/img/pull.svg";
 
 const Projetos = () => {
+    const [formPopOutOpen, setFormPopOutOpen] = useState(false);
+    const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)
+            ) {
+                setLanguageDropdownOpen(false);
+            }
+        }
+
+        window.addEventListener("click", handleClickOutside);
+        return () => window.removeEventListener("click", handleClickOutside);
+    }, []);
+
+    const toggleFormPopOut = () => {
+        setFormPopOutOpen(!formPopOutOpen);
+    };
+
+    const toggleLanguageDropdown = () => {
+        setLanguageDropdownOpen(!languageDropdownOpen);
+    };
+
+    const openForm = () => {
+        setFormPopOutOpen(true);
+    };
+
+    const closeForm = () => {
+        setFormPopOutOpen(false);
+    };
 
     return (
-
         <main className="mainContainer">
+            <Header />
             <article className="articleHeader">
                 <h1 className="title">Meus Projetos</h1>
-                <a id="openForm" className="newProject" href="#">Novo Projeto</a>
-                <div id="menuSidebar" className="sidebar">
+                <a
+                    id="openForm"
+                    className="newProject"
+                    href="#"
+                    onClick={openForm}
+                >
+                    Novo Projeto
+                </a>
+                <div
+                    id="menuSidebar"
+                    className={`sidebar ${formPopOutOpen ? "open" : ""}`}
+                >
                     <form className="formContainer">
                         <input type="text" placeholder="Nome do Projeto" />
                         <input type="text" placeholder="Descrição do Projeto" />
@@ -25,11 +74,19 @@ const Projetos = () => {
                         <input type="email" placeholder="URL do Dast" />
                         <input type="email" placeholder="Usuário do Dast" />
                         <input type="email" placeholder="Senha do Dast" />
-                        <div className="dropdown">
-                            <button className="dropbtn" onClick={()=>{}}>
+                        <div className="dropdown" ref={dropdownRef}>
+                            <button
+                                className="dropbtn"
+                                onClick={toggleLanguageDropdown}
+                            >
                                 Selecione uma Linguagem
                             </button>
-                            <div className="dropdownContent" id="dropdownContent">
+                            <div
+                                className={`dropdownContent ${
+                                    languageDropdownOpen ? "show" : ""
+                                }`}
+                                id="dropdownContent"
+                            >
                                 <a href="#">JavaScript</a>
                                 <a href="#">Python</a>
                                 <a href="#">Java</a>
@@ -54,7 +111,11 @@ const Projetos = () => {
                                 <button className="submit" type="submit">
                                     Enviar Projeto
                                 </button>
-                                <button className="close" id="closeForm">
+                                <button
+                                    className="close"
+                                    id="closeForm"
+                                    onClick={closeForm}
+                                >
                                     Fechar
                                 </button>
                             </div>
@@ -66,160 +127,105 @@ const Projetos = () => {
                 <article className="articleItem">
                     <h3>Projeto</h3>
                     <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
+                        <a href="#" onClick={toggleFormPopOut}>
+                            <img src={edit} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={pull} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={trash} alt="" />
+                        </a>
                     </div>
                 </article>
                 <article className="articleItem">
                     <h3>Projeto</h3>
                     <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
+                        <a href="#" onClick={toggleFormPopOut}>
+                            <img src={edit} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={pull} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={trash} alt="" />
+                        </a>
                     </div>
                 </article>
                 <article className="articleItem">
                     <h3>Projeto</h3>
                     <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
+                        <a href="#" onClick={toggleFormPopOut}>
+                            <img src={edit} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={pull} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={trash} alt="" />
+                        </a>
                     </div>
                 </article>
                 <article className="articleItem">
                     <h3>Projeto</h3>
                     <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
+                        <a href="#" onClick={toggleFormPopOut}>
+                            <img src={edit} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={pull} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={trash} alt="" />
+                        </a>
                     </div>
                 </article>
                 <article className="articleItem">
                     <h3>Projeto</h3>
                     <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
+                        <a href="#" onClick={toggleFormPopOut}>
+                            <img src={edit} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={pull} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={trash} alt="" />
+                        </a>
                     </div>
                 </article>
                 <article className="articleItem">
                     <h3>Projeto</h3>
                     <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
+                        <a href="#" onClick={toggleFormPopOut}>
+                            <img src={edit} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={pull} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={trash} alt="" />
+                        </a>
                     </div>
                 </article>
                 <article className="articleItem">
                     <h3>Projeto</h3>
                     <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
-                    </div>
-                </article>
-                <article className="articleItem">
-                    <h3>Projeto</h3>
-                    <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
-                    </div>
-                </article>
-                <article className="articleItem">
-                    <h3>Projeto</h3>
-                    <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
-                    </div>
-                </article>
-                <article className="articleItem">
-                    <h3>Projeto</h3>
-                    <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
-                    </div>
-                </article>
-                <article className="articleItem">
-                    <h3>Projeto</h3>
-                    <div className="articleLink">
-                        <a href="./"
-                            ><img src="../assets/img/edit.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/trash.svg" alt=""
-                        /></a>
-                        <a href="./"
-                            ><img src="../assets/img/pull.svg" alt=""
-                        /></a>
+                        <a href="#" onClick={toggleFormPopOut}>
+                            <img src={edit} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={pull} alt="" />
+                        </a>
+                        <a href="./">
+                            <img src={trash} alt="" />
+                        </a>
                     </div>
                 </article>
             </article>
         </main>
-    )
-}
+    );
+};
 
 export default Projetos;
+

@@ -1,9 +1,10 @@
-body,
-html {
+#root,
+html,
+body {
     font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
+    background-color: var(--background-color-primary);
 }
 
 img {
@@ -23,12 +24,14 @@ button {
 
 html {
     scrollbar-width: thin;
-    scrollbar-color: var(--background-color-quartenario) var(--background-color-quinzenario);
+    scrollbar-color: var(--background-color-quartenario)
+        var(--background-color-quinzenario);
 }
 
 body {
     scrollbar-width: thin;
-    scrollbar-color: var(--background-color-quartenario) var(--background-color-quinzenario);
+    scrollbar-color: var(--background-color-quartenario)
+        var(--background-color-quinzenario);
 }
 
 body::-webkit-scrollbar {
@@ -47,3 +50,4 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
     background: var(--contrast-color);
 }
+
