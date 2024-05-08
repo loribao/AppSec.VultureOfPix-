@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
         path: "/projectPage",
         element: (
             <App>
-                <Projeto />
+                <MyProfile />
             </App>
         ),
     },

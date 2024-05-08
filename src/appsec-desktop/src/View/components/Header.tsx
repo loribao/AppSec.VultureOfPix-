@@ -16,17 +16,19 @@ export function Header() {
             </a>
             <nav className="navContainer">
                 <div
-                    className={`avatarContainer ${
-                        dropdownVisible ? "active" : ""
-                    }`}
+                    className="avatarContainer"
                     id="avatarDropdown"
                     onClick={toggleDropdown}
                 >
                     <div className="avatar"></div>
-                    <div className="dropDownContent">
-                        <a href="/myProfile.html">Meu Perfil</a>
-                        <a href="/forgotPassword.html">Alterar Senha</a>
-                        <a href="/index.html">Sair</a>
+                    <div
+                        className={`dropDownContentHeader ${
+                            dropdownVisible ? "activeDropDownContentHeader" : ""
+                        }`}
+                    >
+                        <a href="#">Meu Perfil</a>
+                        <a href="#">Alterar Senha</a>
+                        <a href="#">Sair</a>
                     </div>
                 </div>
             </nav>

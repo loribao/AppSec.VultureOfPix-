@@ -1,16 +1,19 @@
-import React from "react";
 import "./MyProfile.css";
 import { Header } from "../components/Header";
+import "../components/Footer";
+import "../components/PageClimp";
 import banner from "../assets/img/profileBanner.png";
 import profile from "../assets/img/avatar.png";
 import imgDisconnectButton from "../assets/img/personCheck.svg";
 import imgEditProfile from "../assets/img/edit.svg";
+import Footer from "../components/Footer";
+import PageClimp from "../components/PageClimp";
 
-const MyProfile = () => {
+function MyProfile() {
     return (
         <div>
             <Header />
-            <main className="mainContainer">
+            <main className="mainMyProfileContainer">
                 <div className="profileContainer">
                     <img className="banner" src={banner} alt="" />
                     <div className="profileInfo">
@@ -113,8 +116,10 @@ const MyProfile = () => {
                     </div>
                 </div>
             </main>
+            <Footer />
+            <PageClimp />
         </div>
     );
-};
+}
 
 export default MyProfile;

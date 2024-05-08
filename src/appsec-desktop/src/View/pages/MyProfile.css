@@ -1,11 +1,11 @@
-@media (max-width: 600px) {
-    .dashboards {
-        display: flex;
-        flex-direction: column;
+@media only screen and (max-width: 1000px) {
+    .dashboards{
+        display: grid !important;
+        grid-template-columns: 1fr !important;
     }
 }
 
-.mainContainer {
+.mainMyProfileContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,7 +13,7 @@
 }
 
 .profileContainer {
-    max-width: 1200px;
+    max-width: 1440px;
     width: 100%;
     margin-bottom: 20px;
 }
@@ -90,7 +90,7 @@
 }
 
 .dashboardsContainer {
-    max-width: 1200px;
+    max-width: 1440px;
     width: 100%;
     border-radius: 6px;
 }
