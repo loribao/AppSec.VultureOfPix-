@@ -8,6 +8,7 @@ import imgDisconnectButton from "../assets/img/personCheck.svg";
 import imgEditProfile from "../assets/img/edit.svg";
 import Footer from "../components/Footer";
 import PageClimp from "../components/PageClimp";
+import MenuDock from "../components/MenuDock";
 
 function MyProfile() {
     return (
@@ -118,6 +119,7 @@ function MyProfile() {
             </main>
             <Footer />
             <PageClimp />
+            <MenuDock />
         </div>
     );
 }

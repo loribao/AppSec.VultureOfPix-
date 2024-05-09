@@ -8,6 +8,7 @@ import trash from "../assets/img/trash.svg";
 import pull from "../assets/img/pull.svg";
 import PageClimp from "../components/PageClimp";
 import Footer from "./../components/Footer";
+import MenuDock from "../components/MenuDock";
 
 const Projetos = () => {
     const [formPopOutOpen, setFormPopOutOpen] = useState(false);
@@ -368,6 +369,7 @@ const Projetos = () => {
             </main>
             <Footer />
             <PageClimp />
+            <MenuDock />
         </div>
     );
 };

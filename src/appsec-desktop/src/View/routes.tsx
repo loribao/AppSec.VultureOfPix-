@@ -2,14 +2,19 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Login from "./pages/Login";
 import Projeto from "./pages/Projects";
-import MyProfile from "./pages/MyProfile"
+import MyProfile from "./pages/MyProfile";
+import PageClimp from "./components/PageClimp";
+import Modal from "./components/Modal";
+import { Header } from "./components/Header";
+import Footer from "./components/Footer";
+import  MenuDock  from "./components/MenuDock";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: (
             <App>
-                <Projeto />
+                <MyProfile />
             </App>
         ),
     },
@@ -17,7 +22,7 @@ export const router = createBrowserRouter([
         path: "/projectPage",
         element: (
             <App>
-                <MyProfile />
+                <Projeto />
             </App>
         ),
     },

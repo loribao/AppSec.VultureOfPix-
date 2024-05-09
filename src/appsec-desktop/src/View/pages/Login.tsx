@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import loginimg from '../assets/img/Vulture_Art.svg'
-import '../assets/css/index.css'
+import './Login.css'
 import {container} from "tsyringe";
 import ILoginCommand from '../../Domain/interfaces/ICommands/ILoginCommand';
 export default function Index() {
@@ -33,7 +33,7 @@ export default function Index() {
                 <div className="rectangle"></div>
                 <div className="personagemLogin-container">
                     <img
-                        className="imageLogin personagemLogin .vultureSvg"
+                        className="imageLogin personagemLogin vultureSvg"
                         src={loginimg}
                         alt="Personagem Página Login"
                     />
@@ -46,7 +46,10 @@ export default function Index() {
                     <p className="paragrafo paragrafoPrincipal">
                         Faça login em sua!
                     </p>
-                    <form className="formLoginContainer" onSubmit={handleSubmit}>
+                    <form
+                        className="formLoginContainer"
+                        onSubmit={handleSubmit}
+                    >
                         <input
                             className="inputLogin"
                             type="email"
@@ -63,7 +66,9 @@ export default function Index() {
                                 type={isPasswordVisible ? "text" : "password"}
                                 id="senhaInput"
                                 placeholder="Senha"
-                                autoComplete={checked ? "current-password" : "off"}
+                                autoComplete={
+                                    checked ? "current-password" : "off"
+                                }
                             />
                             <span
                                 className="passwordToggle"
@@ -76,7 +81,7 @@ export default function Index() {
                                     className="checkboxLogin"
                                     type="checkbox"
                                     id="lembrarCheckbox"
-                                    onChange={(e) =>  setChecked(!checked)}
+                                    onChange={(e) => setChecked(!checked)}
                                     checked={checked}
                                 />
                                 <label
@@ -86,10 +91,12 @@ export default function Index() {
                                 <p className="paragrafo">Lembrar</p>
                             </div>
                         </div>
-                        <button type='submit' className="buttonLogin" >Log In</button>
+                        <button type="submit" className="buttonLogin">
+                            Log In
+                        </button>
                     </form>
                 </section>
             </section>
         </main>
-    )
+    );
 }
