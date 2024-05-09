@@ -1,19 +1,19 @@
 import { inject, injectable } from "tsyringe";
 import type IStoreRepository from "../../Domain/interfaces/IRepositories/IStoreRepository";
-import Store from "../stores/Store";
 import type IDriver from "../../Domain/interfaces/IDrivers/IDriver";
+import Store from "../../Domain/models/KeyValue";
 
 @injectable()
 class StoreRepository implements IStoreRepository{
     constructor(@inject("IDriver") private driver: IDriver) {}
-    pop(): Promise<Store> {
-        throw new Error("Method not implemented.");
+    async delete(key: string): Promise<void> {
+      await this.driver.Store.delete(key);
     }
-    push(store: Store): Promise<void> {
-        throw new Error("Method not implemented.");
+    async insert({id,key,value}: Store): Promise<void> {
+        await this.driver.Store.save(id,key,value);
     }
-    get(): Promise<Store> {
-        throw new Error("Method not implemented.");
+    async get(): Promise<Store[]> {
+        return await this.driver.Store.loadStorageAsync();
     }
 }
 

@@ -26,12 +26,12 @@ export interface IApi {
 export interface IStorage {
    loadStorage<T>(): T;
    loadStorageAsync<T>(): Promise<T>;
-   save<T>(key: string,value:T):Promise<void>;
+   save<T>(id: number,key: string,value:T):Promise<void>;
    delete(key: string): Promise<void>;
    get<T>(key: string): Promise<T>;
 }
 
 export default interface IContext {
     Api: IApi;
-    Store: any;
+    Store: IStorage;
 }

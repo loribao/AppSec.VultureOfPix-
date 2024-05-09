@@ -1,9 +1,9 @@
-import Store from "../../../Data/stores/Store";
+import KeyValue from "../../models/KeyValue";
 
 interface IStoreRepository {
-    pop(): Promise<Store>;
-    push(store: Store): Promise<void>;
-    get(): Promise<Store>;
+    delete(key:string): Promise<void>;
+    insert(store: KeyValue): Promise<void>;
+    get(): Promise<KeyValue[]>;
 }
 
 export default IStoreRepository;
