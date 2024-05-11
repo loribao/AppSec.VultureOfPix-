@@ -1,7 +1,7 @@
-﻿using AppSec.Domain.Entities;
+using AppSec.Domain.Entities;
 using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IRepository;
-namespace AppSec.Domain.Commands.Base;
+namespace AppSec.Domain.Commands.CreateProjectCommand;
 
 public class CreateProjectCommandHandler : ICreateProjectCommandHandler
 {
@@ -26,7 +26,7 @@ public class CreateProjectCommandHandler : ICreateProjectCommandHandler
             {
                 Id = 0,
                 Name = request.Name,
-                UrlBase = request.UrlSast,
+                UrlBase = request.ApiSast,
                 User = request.UserSast,
                 Password = request.PasswordSast,
                 Token = "",
@@ -43,7 +43,7 @@ public class CreateProjectCommandHandler : ICreateProjectCommandHandler
             };
             var repo = new RepoEntity()
             {
-                Branch = request.Branch,
+                Branch = request.BranchGit,
                 Url = request.UrlGit,
                 Id = 0,
                 UserEmail = request.EmailRepository,
@@ -64,9 +64,9 @@ public class CreateProjectCommandHandler : ICreateProjectCommandHandler
 
 
             var path = Path.Combine(Path.GetTempPath(), request.Name);
-            var pathrepository = _gitRepository.Clone(request.UrlGit, request.Branch, path);
+            var pathrepository = _gitRepository.Clone(request.UrlGit, request.BranchGit, path);
             _gitRepository.Pull(pathrepository, request.UserRepository, request.EmailRepository);
-            var t = _gitRepository.HistoryCommit(request.Branch, path).GetAsyncEnumerator();
+            var t = _gitRepository.HistoryCommit(request.BranchGit, path).GetAsyncEnumerator();
             var commits = new List<RepoCommitEntity>();
             while (await t.MoveNextAsync())
             {
@@ -86,12 +86,11 @@ public class CreateProjectCommandHandler : ICreateProjectCommandHandler
             var token = await _sastRepository.CreateIntegrationProject(sast);
             project.Sast.Token = token;
             await _projectRepository.Create(project);
-            return new CreateProjectResponse();
+            return new CreateProjectResponse(project.Id);
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new Exception(e.Message);
         }
     }
 }

@@ -1,0 +1,12 @@
+{
+    "$schema": "./schemas/desktop-schema.json",
+    "identifier": "sonar-plugins",
+    "description": "enables the default permissions",
+    "windows": [
+      "sonar"
+    ],
+    "permissions": [
+      "webview:allow-create-webview-window",
+      "shell:allow-open"
+    ]
+  }

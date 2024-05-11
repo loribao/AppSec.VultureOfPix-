@@ -118,7 +118,7 @@
 .inputLogin:focus {
     outline: none;
     border-color: var(--background-color-quartenario);
-    color: transparent;
+    color: var( --color-title-five);
 }
 
 .inputLogin::placeholder {

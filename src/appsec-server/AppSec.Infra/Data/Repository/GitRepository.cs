@@ -1,4 +1,4 @@
-﻿using AppSec.Domain.Interfaces.IRepository;
+using AppSec.Domain.Interfaces.IRepository;
 using AppSec.Infra.Data.Context;
 using LibGit2Sharp;
 namespace AppSec.Infra.Data.Repository;
@@ -23,7 +23,7 @@ public class GitRepository : IGitRepository
             }
             var rep = LibGit2Sharp.Repository.Clone(url, path, new CloneOptions()
             {
-                BranchName = branch,
+                BranchName = branch,                
             });
             return rep;
         }
@@ -39,7 +39,7 @@ public class GitRepository : IGitRepository
         {
             FetchOptions = new FetchOptions()
             {
-
+                
             }
         });
     }

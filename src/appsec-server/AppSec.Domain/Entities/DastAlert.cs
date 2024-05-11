@@ -1,56 +1,39 @@
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 namespace AppSec.Domain.Entities;
-public class Alert
-{
-    [Key]
-    public int Id { get; set; }
 
-    [JsonPropertyName("pluginid")]
-    public string pluginid { get; set; }
+public record Alert(
 
-    [JsonPropertyName("alertRef")]
-    public string alertRef { get; set; }
+        int alertId,
 
-    [JsonPropertyName("alert")]
-    public string alert { get; set; }
+        [property: JsonPropertyName("pluginid")] string Pluginid,
 
-    [JsonPropertyName("name")]
-    public string name { get; set; }
+        [property: JsonPropertyName("alertRef")] string AlertRef,
 
-    [JsonPropertyName("riskcode")]
-    public string riskcode { get; set; }
+        [property: JsonPropertyName("alert")] string AlertName,
 
-    [JsonPropertyName("confidence")]
-    public string confidence { get; set; }
+        [property: JsonPropertyName("name")] string Name,
 
-    [JsonPropertyName("riskdesc")]
-    public string riskdesc { get; set; }
+        [property: JsonPropertyName("riskcode")] string Riskcode,
 
-    [JsonPropertyName("desc")]
-    public string desc { get; set; }
+        [property: JsonPropertyName("confidence")] string Confidence,
 
-    [JsonPropertyName("instances")]
-    public List<Instance> instances { get; set; }
+        [property: JsonPropertyName("riskdesc")] string Riskdesc,
 
-    [JsonPropertyName("count")]
-    public string count { get; set; }
+        [property: JsonPropertyName("desc")] string Desc,
 
-    [JsonPropertyName("solution")]
-    public string solution { get; set; }
+        [property: JsonPropertyName("instances")] IReadOnlyList<Instance> Instances,
 
-    [JsonPropertyName("otherinfo")]
-    public string otherinfo { get; set; }
+        [property: JsonPropertyName("count")] string Count,
 
-    [JsonPropertyName("reference")]
-    public string reference { get; set; }
+        [property: JsonPropertyName("solution")] string Solution,
 
-    [JsonPropertyName("cweid")]
-    public string cweid { get; set; }
+        [property: JsonPropertyName("otherinfo")] string Otherinfo,
 
-    [JsonPropertyName("wascid")]
-    public string wascid { get; set; }
+        [property: JsonPropertyName("reference")] string Reference,
 
-    [JsonPropertyName("sourceid")]
-    public string sourceid { get; set; }
-}
+        [property: JsonPropertyName("cweid")] string Cweid,
+
+        [property: JsonPropertyName("wascid")] string Wascid,
+
+        [property: JsonPropertyName("sourceid")] string Sourceid
+     );
