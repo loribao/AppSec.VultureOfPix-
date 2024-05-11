@@ -1,7 +1,6 @@
-﻿using AppSec.Domain.Commands;
-using AppSec.Domain.Interfaces.ICommands;
+﻿using AppSec.Domain.Commands.StartSastCommand;
 
-namespace AppSec.Domain;
+namespace AppSec.Domain.Interfaces.ICommands;
 
 public interface IStartSastCommandHandler : IHandlerBase<StartSastRequest, StartSastResponse>
 {

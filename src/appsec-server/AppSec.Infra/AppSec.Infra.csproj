@@ -10,7 +10,7 @@
     <ItemGroup>
         <ProjectReference Include="..\AppSec.Domain\AppSec.Domain.csproj" />
     </ItemGroup>
-    
+
         <Target Name="Cargo" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
             <Exec Command="cargo build --release"></Exec>
         </Target>
@@ -18,7 +18,7 @@
             <Exec Command="cargo build --release"></Exec>
         </Target>
         <Target Name="Cargo" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug' ">
-            <Exec Command="cargo build --target-dir $(OutDir)"></Exec>            
+            <Exec Command="cargo build --target-dir $(OutDir)"></Exec>
         </Target>
         <Target Name="Cargo" AfterTargets="Clean">
             <Exec Command="cargo clean --target-dir $(OutDir)"></Exec>
@@ -37,6 +37,6 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
-        <PackageReference Include="OWASPZAPDotNetAPI" Version="2.12.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
     </ItemGroup>
 </Project>

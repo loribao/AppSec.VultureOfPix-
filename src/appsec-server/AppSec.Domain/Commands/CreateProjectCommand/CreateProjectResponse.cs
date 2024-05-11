@@ -1,6 +1,3 @@
-﻿namespace AppSec.Domain;
+namespace AppSec.Domain.Commands.CreateProjectCommand;
 
-public record CreateProjectResponse
-{
-
-}
+public record CreateProjectResponse(int Id);

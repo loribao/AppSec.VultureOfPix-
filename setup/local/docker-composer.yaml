@@ -1,6 +1,11 @@
 version: "3"
 
 services:
+  appsec:
+    image: ${DOCKER_REGISTRY-}appsec
+    build:
+      context: .
+      dockerfile: src/appsec-server/AppSec/Dockerfile
   sonarqube:
     image: sonarqube:${SONARQUBE_VERSION}
     depends_on:
@@ -16,12 +21,32 @@ services:
     ports:
       - "9000:9000"
   zap:
-    image: owasp/zap2docker-stable
-    command: zap.sh -daemon -port 8090 -host 0.0.0.0
+    image: zaproxy/zap-weekly:20240507
+    command: ["zap-webswing.sh"]
     ports:
       - "8080:8080"
       - "8090:8090"
+    environment:
+      - ZAP_WEBSWING_OPTS=-host 0.0.0.0 -port 8090 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+        - 27017:27017
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
 
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+        - 8081:8081
+    environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
+        ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
+        ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/
+        ME_CONFIG_BASICAUTH: false
   db:
     image: postgres:${POSTGRES_VERSION}
     environment:

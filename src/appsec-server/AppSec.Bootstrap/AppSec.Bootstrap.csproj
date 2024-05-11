@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\AppSec.Domain\AppSec.Domain.csproj" />
       <ProjectReference Include="..\AppSec.Infra\AppSec.Infra.csproj" />
