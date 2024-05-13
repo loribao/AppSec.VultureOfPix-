@@ -39,8 +39,9 @@ namespace AppSec.Infra.Data.Repository
         {
             try
             {
-                var envHash = Environment.GetEnvironmentVariable("ADMIN_HASH");
-                if (envHash == this.GetHash($"{user.Trim()}{pass.Trim()}"))
+                var envHash = Environment.GetEnvironmentVariable("ADMIN_HASH")??"";
+                var hash = this.GetHash($"{user.Trim()}{pass.Trim()}")??"";
+                if (envHash?.ToUpper() == hash?.ToUpper())
                 {
                     return await generateJwtToken(new User()
                     {
@@ -54,10 +55,10 @@ namespace AppSec.Infra.Data.Repository
                 }
 
                 var user_in_db = mongo.GetCollection<User>("users").AsQueryable().Where(x => x.UserLogin.Trim() == user.Trim()).First();
-                var passhashstr = this.GetHash(pass.Trim());
+                var passhashstr = this.GetHash(pass.Trim())??"";
           
 
-                if (user_in_db.Password.Equals(passhashstr))
+                if (user_in_db.Password.ToUpper().Equals(passhashstr.ToUpper()))
                 {
                     return await generateJwtToken(user_in_db);
                 }
@@ -90,8 +91,8 @@ namespace AppSec.Infra.Data.Repository
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = await Task.Run(() =>
             {
-
-                var key = Encoding.ASCII.GetBytes("testeasdfasdfasdfasdfasdfasdfadsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfadsasfds");
+                var enckey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY") ?? throw new Exception("not key secret");
+                var key = Encoding.ASCII.GetBytes(enckey);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[] {

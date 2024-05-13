@@ -24,6 +24,7 @@
             <Exec Command="cargo clean --target-dir $(OutDir)"></Exec>
         </Target>
     <ItemGroup>
+        <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.13.12" />
         <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.0" />
         <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="13.9.0" />
         <PackageReference Include="HotChocolate.Data" Version="13.9.0" />

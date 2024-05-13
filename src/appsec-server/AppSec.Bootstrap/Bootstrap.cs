@@ -29,7 +29,7 @@ public static class Register
     public static IServiceCollection ExtendServicesBootStrap(this IServiceCollection Services, IConfiguration configuration)
     {
         var paths = configuration.GetRequiredSection("paths");
-
+        var enckey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY") ?? throw new Exception("not key secret");
 
         Services.AddAuthentication(
            x =>
@@ -44,7 +44,7 @@ public static class Register
                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                {
                    ValidateIssuerSigningKey = true,
-                   IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes("testeasdfasdfasdfasdfasdfasdfadsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfadsasfds")),
+                   IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes(enckey)),
                    ValidateIssuer = false,
                    ValidateAudience = false,
                };
