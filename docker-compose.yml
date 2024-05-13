@@ -1,0 +1,19 @@
+services:
+  appsec:
+    image: ${DOCKER_REGISTRY-}appsec
+    build:
+      context: .
+      dockerfile: src/appsec-server/AppSec/Dockerfile
+    ports:
+      - "5080:8080"
+      - "5081:8081"
+    environment:
+      - ADMIN_HASH=${ADMIN_HASH}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+    networks:
+      - appsec_network
+
+networks:
+    appsec_network:
+        driver: bridge
+        external: true

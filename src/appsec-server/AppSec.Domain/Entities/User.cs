@@ -2,7 +2,7 @@ namespace AppSec.Domain.Entities
 {
     public class User
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string UserLogin { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; } = "";

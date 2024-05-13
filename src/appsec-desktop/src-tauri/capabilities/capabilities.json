@@ -1,18 +1,50 @@
 {
-    "$schema": "./schemas/desktop-schema.json",
-    "identifier": "default-plugins",
-    "description": "enables the default permissions",
-    "windows": ["main"],
-    "permissions": [
-        {
-          "identifier": "http:default",
-          "allow": ["http://localhost:5048/graphql"],
-          "deny": []
-        },
-        {
-          "identifier": "http:allow-fetch",
-          "allow": ["http://localhost:5048/graphql"],
-          "deny": []
-        }
-      ]
-  }
+  "$schema": "./schemas/desktop-schema.json",
+  "identifier": "default-plugins",
+  "description": "enables the default permissions",
+  "windows": [
+    "main",
+    "sonar"
+  ],
+  "permissions": [
+    {
+      "identifier": "http:default",
+      "allow": [
+        "http://localhost:5048/graphql"
+      ],
+      "deny": []
+    },
+    {
+      "identifier": "http:allow-fetch",
+      "allow": [
+        "http://localhost:5048/graphql"
+      ],
+      "deny": []
+    },
+    {
+      "identifier": "shell:allow-open",
+      "allow": [
+        "window:sonar",
+        "webview:sonar"
+      ],
+      "deny": []
+    },
+    "menu:default",
+    "menu:allow-new",
+    "tray:default",
+    "tray:allow-get-by-id",
+    "tray:allow-set-title",
+    "tray:allow-set-show-menu-on-left-click",
+    "tray:allow-set-menu",
+    "tray:allow-set-icon-as-template",
+    "webview:allow-create-webview-window",
+    "shell:default",
+    "shell:allow-open",
+    "store:allow-get",
+    "store:allow-set",
+    "store:allow-save",
+    "store:allow-load",
+    "webview:allow-create-webview-window",
+    "shell:allow-open"
+  ]
+}

@@ -1,4 +1,4 @@
-﻿using AppSec.Domain.Interfaces.IRepository;
+using AppSec.Domain.Interfaces.IRepository;
 using AppSec.Infra.Data.Context;
 using LibGit2Sharp;
 namespace AppSec.Infra.Data.Repository;
@@ -10,6 +10,19 @@ public class GitRepository : IGitRepository
     public GitRepository(ContextAppSec db)
     {
         this.db = db;
+    }
+    public string LastCommit(string path)
+    {
+        try
+        {
+            using var repo = new LibGit2Sharp.Repository(path);
+            var commit = repo.Commits.FirstOrDefault();
+            return commit?.Id.ToString() ?? "";
+        }
+        catch (Exception e)
+        {
+            return "";
+        }        
     }
     public string Clone(string url, string branch, string path)
     {
@@ -23,7 +36,7 @@ public class GitRepository : IGitRepository
             }
             var rep = LibGit2Sharp.Repository.Clone(url, path, new CloneOptions()
             {
-                BranchName = branch,
+                BranchName = branch,                
             });
             return rep;
         }
@@ -39,7 +52,7 @@ public class GitRepository : IGitRepository
         {
             FetchOptions = new FetchOptions()
             {
-
+                
             }
         });
     }
@@ -74,4 +87,5 @@ public class GitRepository : IGitRepository
             }
         }
     }
+    
 }

@@ -17,3 +17,5 @@ docs/proposal/.~lock.Atualização Vulture.odt#
 .idea
 .database
 .temp
+fleet*
+data/*

@@ -7,6 +7,6 @@ namespace AppSec.Domain.Interfaces.IRepository
         Task<string?> Authenticate(string user, string pass);
         Task<IEnumerable<User>> GetAll();
         Task<User?> GetById(int id);
-        Task<User?> AddAndUpdateUser(User userObj);
+        Task<User?> AddAsync(User userObj);
     }
 }

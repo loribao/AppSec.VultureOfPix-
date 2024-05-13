@@ -50,7 +50,11 @@ class Store implements IStorage{
         value: any;
     }];
     constructor() {
-        this.storage = this.loadStorage();
+        this.storage = [{
+            id: 0,
+            key: '',
+            value: ''
+        }];
     }
     loadStorage(){
         const _storage_raw = localStorage.getItem('store');
@@ -61,8 +65,9 @@ class Store implements IStorage{
         this.storage = _storage_raw ? JSON.parse(_storage_raw) : [];
         return this.storage ;
     }
-   async save<T>(key: string,value:T) {
-        this.storage.push({id: this.storage.length, key, value});
+   async save<T>(id:number,key: string,value:T) {
+        id = id == 0 ? this.storage.length + 1 : id;
+        this.storage.push({id, key, value});
         localStorage.setItem('store', JSON.stringify(this.storage));
     }
     async delete(key: string) {

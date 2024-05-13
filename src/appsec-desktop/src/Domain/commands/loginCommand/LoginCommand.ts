@@ -3,23 +3,27 @@ import type ILoginRepository from "../../interfaces/IRepositories/ILoginReposito
 import LoginRequest from "./LoginRequest";
 import LoginResponse from "./LoginResponse";
 import ILoginCommand from "../../interfaces/ICommands/ILoginCommand";
+import type IStoreRepository from "../../interfaces/IRepositories/IStoreRepository";
 
 @injectable()
-class LoginCommand implements ILoginCommand{
-    private loginRepository: ILoginRepository;
-    constructor(@inject("ILoginRepository") loginRepository: ILoginRepository) {
-        this.loginRepository = loginRepository;
+class LoginCommand implements ILoginCommand {
+
+    constructor(@inject("ILoginRepository") private loginRepository: ILoginRepository, @inject("IStoreRepository") private storeRepository: IStoreRepository) {
     }
-    public async  Handler(request: LoginRequest): Promise<LoginResponse> {
+    public async Handler(request: LoginRequest): Promise<LoginResponse> {
         //call to API
         let token = await this.loginRepository.login(request.username, request.password);
         //save token
-        if (token.length > 0)
+        if (token.length > 0) {
+            await this.storeRepository.insert({
+                key: "token",
+                value: token,
+                id: 0
+            });
             return new LoginResponse("success");
+        }
         else
             throw new Error("Error on authenticate");
-        //
-
     }
 }
 

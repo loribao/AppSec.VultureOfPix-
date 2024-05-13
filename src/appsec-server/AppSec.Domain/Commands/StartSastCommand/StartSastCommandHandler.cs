@@ -1,6 +1,7 @@
+using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IRepository;
 
-namespace AppSec.Domain.Commands;
+namespace AppSec.Domain.Commands.StartSastCommand;
 
 public class StartSastCommandHandler : IStartSastCommandHandler
 {

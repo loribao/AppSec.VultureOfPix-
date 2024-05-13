@@ -1,9 +1,6 @@
 .imageLogin,
 .personagemLogin,
 .tree,
-.vultureSvg > img svg > g{
-    fill: var(--background-color-primary) !important;
-}
 .rectangle {
     display: block;
 }
@@ -122,7 +119,7 @@
 .inputLogin:focus {
     outline: none;
     border-color: var(--background-color-quartenario);
-    color: var(--color-title-two);
+    color: var( --color-title-five);
 }
 
 .inputLogin::placeholder {
@@ -246,3 +243,43 @@
     background-image: url("../img/eyeOff.svg");
 }
 
+@media (max-width: 900px) {
+    #root, body, html {
+        width: 100vw;
+        height: 100vh;
+    }
+    #root{
+
+        width: 100vw !important;
+        height: 100vh !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: var(--background-color-secondary);
+    }
+    .mainLoginContainer {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: var(--background-color-secondary);
+    }
+
+    .leftSection {
+        display: none;
+    }
+
+    .rightSection {
+        flex: 1;
+        padding: 30px;
+        max-width: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .rectangle,
+    .tree,
+    .personagemLogin-container {
+        display: none;
+    }
+}
