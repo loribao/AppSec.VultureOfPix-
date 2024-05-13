@@ -8,7 +8,7 @@ namespace AppSec.Infra.Web.Graphql;
 public class QueryRoot
 {
     [UseFiltering]
-    public IQueryable<ProjectEntity> GetProjects([Service] ContextAppSec db ) => db.Projects.AsQueryable();
+    public IQueryable<ProjectEntity> GetProjects([Service] ContextAppSec db) => db.Projects.AsQueryable();
     [UseFiltering]
     public IQueryable<DastAnalysisEntity> GetDastAnalysis([Service] ContextAppSec db) => db.DastAnalysis.AsQueryable();
     [UseFiltering]

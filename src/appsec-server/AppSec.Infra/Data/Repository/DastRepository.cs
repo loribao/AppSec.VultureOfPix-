@@ -1,9 +1,7 @@
 using AppSec.Domain.Entities;
 using AppSec.Domain.Interfaces.IRepository;
 using AppSec.Infra.Data.Context;
-using AppSec.Infra.Data.Drivers;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 
 namespace AppSec.Infra.Data.Repository;
@@ -12,8 +10,10 @@ public class DastRepository : IDastRepository
 {
     private readonly ContextAppSec context;
     private readonly ILogger<DastRepository> _logger;
+    private HttpClient _client = new HttpClient();
     public DastRepository(ContextAppSec context, ILogger<DastRepository> logger)
     {
+
         this.context = context;
         _logger = logger;
     }
@@ -22,45 +22,53 @@ public class DastRepository : IDastRepository
     {
         throw new NotImplementedException();
     }
-    public Task<byte[]?> RunAnalysis(string urlTarget, string dastApiKey, string dastUrlApi)
+    public async Task RunAnalysis(string urlTarget, string dastApiKey, string dastUrlApi)
     {
-        var ret = Task.Run(() =>
+        using (var client = new HttpClient())
         {
-            var dastApiURI = new Uri(dastUrlApi);
-            var _ZapDriver = new ZapDriver(urlTarget, dastApiKey, $"{dastApiURI.Scheme}://{dastApiURI.Host}", dastApiURI.Port);
-            _ZapDriver.InstallDependencies();
-            var report = _ZapDriver.Run();
-            return report;
-        });
-        return ret;
-    }
-    public async Task SyncAnalysis(int id, byte[] report)
-    {
-        try
-        {
-            var project = context.Projects.Select(x => new ProjectEntity()
+            try
             {
-                Id = x.Id,
-                Description = x.Description,
-                Dast = x.Dast,
-                CreatedAt = x.CreatedAt,
-                Name = x.Name,
-                Path = x.Path,
-                Repository = x.Repository,
-            }).FirstOrDefault(x => x.Id == id);
-            if (project is null)
+                client.BaseAddress = new Uri(dastUrlApi);
+                string apiUrl = $"JSON/ajaxSpider/action/scan/?inScope=false&contextName=&subtreeOnly=false&zapapiformat=JSON&url={urlTarget}";
+
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    return;
+                }
+                else
+                {
+                    throw new HttpRequestException($"error: response {response.StatusCode} ");
+                }
+            }
+            catch (HttpRequestException e)
             {
-                var strReport = report.ToString();
-                var reportEntity = JsonSerializer.Deserialize<DastReport>(strReport);
-                _ = project.Dast?.DastReports.Append(reportEntity);
-                context.Update(project);
-                context.SaveChanges();
+                throw new HttpRequestException(e.Message);
             }
         }
-        catch (Exception e)
+    }
+    public async Task SyncAnalysis(string id)
+    {
+
+
+        using (var client = new HttpClient())
         {
-            _logger.LogError(e, "Error on SyncAnalysis");
-            throw;
+            try
+            {
+                client.BaseAddress = new Uri("http://localhost:8090");
+                string apiUrl = $"/JSON/ajaxSpider/view/status/?";
+
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                response.EnsureSuccessStatusCode();
+                var responseBody = await response.Content.ReadAsByteArrayAsync();
+
+            }
+            catch (HttpRequestException e)
+            {
+                throw new HttpRequestException(e.Message);
+            }
         }
     }
+
 }

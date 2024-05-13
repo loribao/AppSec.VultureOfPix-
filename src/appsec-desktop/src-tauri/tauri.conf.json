@@ -8,18 +8,26 @@
         "beforeBuildCommand": "npm run build",
         "frontendDist": "../dist"
     },
-        "plugins": {
-          "http": null
-        },
+    "plugins": {
+        "http": null
+    },
     "app": {
         "windows": [
             {
                 "label": "main",
                 "title": "App Sec",
-                "width": 800,
+                "width": 600,
                 "height": 600
             }
         ],
+        "trayIcon": {
+            "iconPath": "icons\\icon.ico",
+            "title": "App Sec",
+            "tooltip": "App Sec",
+            "id": "appsec-tray",
+            "menuOnLeftClick": true,
+            "iconAsTemplate": false
+        },
         "security": {
             "csp": null
         }

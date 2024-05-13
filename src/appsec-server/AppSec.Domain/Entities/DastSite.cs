@@ -1,26 +1,16 @@
-
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace AppSec.Domain.Entities;
+public record Site(
 
-public class Site
-{
+        int id,
+        [property: JsonPropertyName("@name")] string Name,
 
-    [Key]
-    public int Id { get; set; }
-    [JsonPropertyName("@name")]
-    public string name { get; set; }
+        [property: JsonPropertyName("@host")] string Host,
 
-    [JsonPropertyName("@host")]
-    public string host { get; set; }
+        [property: JsonPropertyName("@port")] string Port,
 
-    [JsonPropertyName("@port")]
-    public string port { get; set; }
+        [property: JsonPropertyName("@ssl")] string Ssl,
 
-    [JsonPropertyName("@ssl")]
-    public string ssl { get; set; }
-
-    [JsonPropertyName("alerts")]
-    public List<Alert> alerts { get; set; }
-}
+        [property: JsonPropertyName("alerts")] IReadOnlyList<Alert> Alerts
+    );

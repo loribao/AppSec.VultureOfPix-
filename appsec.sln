@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppSec.Infra", "src\appsec-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppSec.Bootstrap", "src\appsec-server\AppSec.Bootstrap\AppSec.Bootstrap.csproj", "{07CD4199-F72F-402F-B50C-4002FD500A44}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5CDB2C4C-2631-4323-961C-39A829F6BC28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{07CD4199-F72F-402F-B50C-4002FD500A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07CD4199-F72F-402F-B50C-4002FD500A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07CD4199-F72F-402F-B50C-4002FD500A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CDB2C4C-2631-4323-961C-39A829F6BC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CDB2C4C-2631-4323-961C-39A829F6BC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CDB2C4C-2631-4323-961C-39A829F6BC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CDB2C4C-2631-4323-961C-39A829F6BC28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

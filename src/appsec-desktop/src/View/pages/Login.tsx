@@ -52,11 +52,11 @@ export default function Index() {
                     >
                         <input
                             className="inputLogin"
-                            type="email"
-                            placeholder="Email"
+                            type="text"
+                            placeholder="LogIn"
                             value={login_txt}
                             onChange={handleLogin}
-                            autoComplete={checked ? "email" : "off"}
+                            autoComplete={checked ? "name" : "off"}
                         />
                         <div className="passwordToggleContainer">
                             <input

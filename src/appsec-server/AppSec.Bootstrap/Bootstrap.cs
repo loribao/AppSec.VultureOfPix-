@@ -1,26 +1,24 @@
-using AppSec.Domain;
-using AppSec.Domain.Commands;
-using AppSec.Domain.Commands.Base;
+using AppSec.Domain.Commands.CreateProjectCommand;
+using AppSec.Domain.Commands.CreateUserCommand;
+using AppSec.Domain.Commands.LogInCommand;
+using AppSec.Domain.Commands.StartDastCommand;
+using AppSec.Domain.Commands.StartSastCommand;
 using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IDrivers;
 using AppSec.Domain.Interfaces.IRepository;
+using AppSec.Infra.Data.Consumers;
 using AppSec.Infra.Data.Context;
 using AppSec.Infra.Data.Drivers;
 using AppSec.Infra.Data.Repository;
-using AppSec.Infra.Data.Services.Consumers;
-using AppSec.Infra.Web.Rest.ApiAuthController;
-using AppSec.Infra.Web.Rest.ApiDastController;
-using AppSec.Infra.Web.Rest.ApiPingController;
-using AppSec.Infra.Web.Rest.ApiProjectController;
-using AppSec.Infra.Web.Rest.ApiSastController;
+using AppSec.Infra.Web.Graphql;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 using System.Text;
-using AppSec.Infra.Web.Graphql;
 
 
 namespace AppSec.Bootstrap;
@@ -31,7 +29,7 @@ public static class Register
     public static IServiceCollection ExtendServicesBootStrap(this IServiceCollection Services, IConfiguration configuration)
     {
         var paths = configuration.GetRequiredSection("paths");
-
+        var enckey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY") ?? throw new Exception("not key secret");
 
         Services.AddAuthentication(
            x =>
@@ -46,7 +44,7 @@ public static class Register
                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                {
                    ValidateIssuerSigningKey = true,
-                   IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes("testeasdfasdfasdfasdfasdfasdfadsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfadsasfds")),
+                   IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes(enckey)),
                    ValidateIssuer = false,
                    ValidateAudience = false,
                };
@@ -65,6 +63,7 @@ public static class Register
             });
             return new ContextAppSec(optionsBuilder.Options);
         });
+        Services.AddScoped<IMongoDatabase>(x => new MongoClient(configuration.GetConnectionString("DefaultConnection")).GetDatabase("AppSec"));
         Services.AddScoped<ILanguageDriverSast, LanguageDriverSast>();
         Services.AddScoped<IUserRepository, UserRepository>();
         Services.AddScoped<IProjectRepository, ProjectRepository>();
@@ -74,30 +73,42 @@ public static class Register
         Services.AddScoped<ICreateProjectCommandHandler, CreateProjectCommandHandler>();
         Services.AddScoped<IStartSastCommandHandler, StartSastCommandHandler>();
         Services.AddScoped<IStartDastCommandHandler, StartDastCommandHandler>();
+        Services.AddScoped<ILogInCommandHandler, LogInCommandHandler>();
+        Services.AddScoped<ICreateUserCommandHandler, CreateUserCommandHandler>();
+
         Services.AddMassTransit(x =>
          {
-             x.AddConsumer<DastStartSubmitConsumer>(cfg =>
+             x.AddConsumer<LogInConsumer>(cfg =>
              {
-                 cfg.UseConcurrentMessageLimit(1);
+                 cfg.UseConcurrentMessageLimit(10);
+
              });
-             x.AddConsumer<ProjectCreateConsumer>(cfg =>
+             x.AddConsumer<CreateProjectConsumer>(cfg =>
+                {
+                    cfg.UseConcurrentMessageLimit(10);
+                });
+             x.AddConsumer<CreateUserConsumer>(cfg =>
              {
-                 cfg.UseConcurrentMessageLimit(1);
+                 cfg.UseConcurrentMessageLimit(10);
              });
-             x.AddConsumer<SastSubmitConsumer>(cfg =>
+             x.AddConsumer<StartDastConsumer>(cfg =>
              {
-                 cfg.UseConcurrentMessageLimit(1);
+                    cfg.UseConcurrentMessageLimit(10);
+             });
+             x.AddConsumer<StartSastConsumer>(cfg =>
+             {
+                    cfg.UseConcurrentMessageLimit(10);
              });
              x.UsingInMemory((context, cfg) =>
              {
                  cfg.ConfigureEndpoints(context);
              });
-         });        
+         });
         Services
             .AddGraphQLServer()
             .AddAuthorization()
-            .AddQueryType<QueryRoot>()            
-            .AddMutationType<MutationRoot>()            
+            .AddQueryType<QueryRoot>()
+            .AddMutationType<MutationRoot>()
             .AddFiltering();
         return Services;
     }
@@ -105,12 +116,6 @@ public static class Register
     {
         app.UseAuthentication();
         app.UseAuthorization();
-        app
-        .ApiAuthControllerExtend()
-        .ApiProjectControllerExtend()
-        .ApiSastControllerExtend()
-        .ApiDastControllerExtend()
-        .ApiPingControllerExtend();
         app.MapGraphQL();
         return app;
     }
