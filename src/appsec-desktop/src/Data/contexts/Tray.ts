@@ -39,7 +39,24 @@ export default async function Tray() {
             const webview = new WebviewWindow('kibna', {
                 parent: 'main',
                 title: 'VulturePix - Kibana',
-                url: 'http://localhost:5601/'
+                url: 'https://localhost:5601/'
+            });
+            webview.once('tauri://created', function () {
+                console.log('webview created');
+            });
+            webview.once('tauri://error', function (e) {
+                console.log('webview error', e);
+            });
+        }
+    }
+    const createWindowAppSecGraphql = async () => {
+        {
+            const webview = new WebviewWindow('appsec', {
+                parent: 'main',
+                title: 'VulturePix - AppSec Graphql',
+                url: 'http://localhost:5080/graphql/',
+                contentProtected: false,
+
             });
             webview.once('tauri://created', function () {
                 console.log('webview created');
@@ -66,7 +83,11 @@ export default async function Tray() {
                 text: 'Kibana',
                 action: createWindowKibana,
             })
-            let menu = await Menu.new({ items: [menuItems, menuItems2, menuItems3] });
+            const menuItems4 = await MenuItem.new({
+                text: 'AppSec Graphql',
+                action: createWindowAppSecGraphql,
+            })
+            let menu = await Menu.new({ items: [menuItems, menuItems2, menuItems3, menuItems4] });
             await tray?.setMenu(menu);
             await tray?.setIconAsTemplate(true);
             return true
