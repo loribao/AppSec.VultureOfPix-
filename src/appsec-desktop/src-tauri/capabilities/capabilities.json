@@ -3,7 +3,8 @@
   "identifier": "default-plugins",
   "description": "enables the default permissions",
   "windows": [
-    "main"
+    "main",
+    "sonar"
   ],
   "permissions": [
     {
@@ -42,6 +43,8 @@
     "store:allow-get",
     "store:allow-set",
     "store:allow-save",
-    "store:allow-load"
+    "store:allow-load",
+    "webview:allow-create-webview-window",
+    "shell:allow-open"
   ]
 }
