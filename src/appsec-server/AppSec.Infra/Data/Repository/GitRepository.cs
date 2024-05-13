@@ -11,6 +11,19 @@ public class GitRepository : IGitRepository
     {
         this.db = db;
     }
+    public string LastCommit(string path)
+    {
+        try
+        {
+            using var repo = new LibGit2Sharp.Repository(path);
+            var commit = repo.Commits.FirstOrDefault();
+            return commit?.Id.ToString() ?? "";
+        }
+        catch (Exception e)
+        {
+            return "";
+        }        
+    }
     public string Clone(string url, string branch, string path)
     {
 
@@ -74,4 +87,5 @@ public class GitRepository : IGitRepository
             }
         }
     }
+    
 }
