@@ -5,7 +5,7 @@ import MyProfile from "./pages/MyProfile";
 
 export const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/projectPage",
         element: (
             <App>
                 <MyProfile />
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
         ),
     },
     {
-        path: "/projectPage",
+        path: "/",
         element: (
             <App>
                 <Projeto />
