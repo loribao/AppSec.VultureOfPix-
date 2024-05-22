@@ -19,3 +19,4 @@ fleet*
 docs/HtmlView
 docs/html-docs
 src/appsec-server/AppSec/appsettings.json
+/src/appsec-server/AppSec/appsettings.json
