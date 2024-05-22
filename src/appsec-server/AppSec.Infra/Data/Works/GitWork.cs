@@ -21,6 +21,7 @@ namespace AppSec.Infra.Data.Works
         {
             this.serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)

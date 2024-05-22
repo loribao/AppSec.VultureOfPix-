@@ -126,8 +126,6 @@ public static class Register
             .AddAuthorization()
             .AddQueryType<QueryRoot>()
             .AddMutationType<MutationRoot>()
-            .AddQueryType<QueryRoot>()
-            .AddMutationType<MutationRoot>()
             .AddFiltering();
         Services.AddHostedService<GitWork>();
         Services.AddHostedService<StastWork>();

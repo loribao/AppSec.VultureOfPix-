@@ -88,7 +88,7 @@ namespace AppSec.Infra.Data.Works
                 }
                 catch (Exception e)
                 {
-                    this.logger.LogError($"ExecuteAsync: {e.Message}, trace: {e.Message}");
+                    this.logger.LogError($"ExecuteAsync: {e.Message}, trace: {e.StackTrace}");
                 }
                 await Task.Delay(10000);
             }
