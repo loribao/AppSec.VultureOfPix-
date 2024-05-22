@@ -1,15 +1,13 @@
 using AppSec.Domain.Enums;
 
 namespace AppSec.Domain.Commands.CreateProjectCommand;
-namespace AppSec.Domain.Commands.CreateProjectCommand;
 
 public record CreateProjectRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }
     public string UrlGit { get; set; }
-    public string BranchGit { get; set; }
-    public string BranchGit { get; set; }
+    public string BranchGit { get; set; }    
     public string UserRepository { get; set; }
     public string EmailRepository { get; set; }
     public string TokenRepository { get; set; }

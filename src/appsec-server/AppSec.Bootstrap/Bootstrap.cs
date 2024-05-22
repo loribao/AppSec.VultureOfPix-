@@ -16,14 +16,12 @@ using AppSec.Infra.Data.Repository;
 using AppSec.Infra.Data.Works;
 using AppSec.Infra.Web.Graphql;
 using AppSec.Infra.Web.Rest;
-using Elastic.Apm.NetCoreAll;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 using MongoDB.Driver;
 using System.Text;
 namespace AppSec.Bootstrap;
@@ -55,8 +53,7 @@ public static class Register
                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                {
                    ValidateIssuerSigningKey = true,
-                   IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes(enckey)),
-                   IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes(enckey)),
+                   IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes(enckey)),                   
                    ValidateIssuer = false,
                    ValidateAudience = false,
                };
@@ -123,8 +120,7 @@ public static class Register
              {
                  cfg.ConfigureEndpoints(context);
              });
-         });
-         });
+         });       
         Services
             .AddGraphQLServer()
             .AddAuthorization()

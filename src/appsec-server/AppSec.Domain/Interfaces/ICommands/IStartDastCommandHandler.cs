@@ -1,4 +1,4 @@
-﻿using AppSec.Domain.Commands.StartDastCommand;
+using AppSec.Domain.Commands.StartDastCommand;
 
 namespace AppSec.Domain.Interfaces.ICommands;
 

@@ -1,7 +1,7 @@
 using AppSec.Domain.Entities;
 using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IRepository;
-namespace AppSec.Domain.Commands.CreateProjectCommand;
+
 namespace AppSec.Domain.Commands.CreateProjectCommand;
 
 public class CreateProjectCommandHandler : ICreateProjectCommandHandler
