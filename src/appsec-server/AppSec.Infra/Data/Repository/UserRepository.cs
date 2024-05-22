@@ -1,22 +1,33 @@
 using AppSec.Domain.Entities;
 using AppSec.Domain.Interfaces.IRepository;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using System.Security.Cryptography;
-using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace AppSec.Infra.Data.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly IMongoDatabase mongo;
-
-        public UserRepository(IMongoDatabase mongo)
+        private readonly IConfiguration configuration;
+        private readonly string envHash = Environment.GetEnvironmentVariable("ADMIN_HASH") ?? "";
+        private readonly string enckey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY") ?? "";
+        public UserRepository(IMongoDatabase mongo, IConfiguration configuration)
         {
             this.mongo = mongo ?? throw new ArgumentNullException(nameof(mongo));
+            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            if (string.IsNullOrEmpty(envHash))
+            {
+                this.envHash = configuration.GetSection("Server:ADMIN_HASH").Value ?? throw new ArgumentNullException("ADMIN_HASH");               
+            }
+            if (string.IsNullOrEmpty(enckey))
+            {
+                this.enckey = configuration.GetSection("Server:ENCRYPTION_KEY").Value ?? throw new ArgumentNullException("ENCRYPTION_KEY");
+            }
         }
 
         private readonly SHA256 pass = SHA256.Create();
@@ -39,8 +50,7 @@ namespace AppSec.Infra.Data.Repository
         {
             try
             {
-                var envHash = Environment.GetEnvironmentVariable("ADMIN_HASH")??"";
-                var hash = this.GetHash($"{user.Trim()}{pass.Trim()}")??"";
+                var hash = this.GetHash($"{user.Trim()}{pass.Trim()}") ?? "";
                 if (envHash?.ToUpper() == hash?.ToUpper())
                 {
                     return await generateJwtToken(new User()
@@ -50,19 +60,19 @@ namespace AppSec.Infra.Data.Repository
                         Id = "0",
                         UserLogin = user,
                         Password = "********",
-                        Role="admin"
+                        Role = "admin"
                     });
                 }
 
                 var user_in_db = mongo.GetCollection<User>("users").AsQueryable().Where(x => x.UserLogin.Trim() == user.Trim()).First();
-                var passhashstr = this.GetHash(pass.Trim())??"";
-          
+                var passhashstr = this.GetHash(pass.Trim()) ?? "";
+
 
                 if (user_in_db.Password.ToUpper().Equals(passhashstr.ToUpper()))
                 {
                     return await generateJwtToken(user_in_db);
                 }
-                
+
                 else
                 {
                     return null;
@@ -73,7 +83,7 @@ namespace AppSec.Infra.Data.Repository
 
                 return null;
             }
-            
+
         }
 
         public Task<IEnumerable<User>> GetAll()
@@ -91,7 +101,6 @@ namespace AppSec.Infra.Data.Repository
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = await Task.Run(() =>
             {
-                var enckey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY") ?? throw new Exception("not key secret");
                 var key = Encoding.ASCII.GetBytes(enckey);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {

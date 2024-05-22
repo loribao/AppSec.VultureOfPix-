@@ -7,90 +7,83 @@ public class CreateProjectCommandHandler : ICreateProjectCommandHandler
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IGitRepository _gitRepository;
-    private readonly IDastRepository _dastRepository;
-    private readonly ISastRepository _sastRepository;
-
-    public CreateProjectCommandHandler(IProjectRepository projectRepository, IGitRepository gitRepository, IDastRepository dastRepository, ISastRepository sastRepository)
+    
+    public CreateProjectCommandHandler(IProjectRepository projectRepository, IGitRepository gitRepository)
     {
         _projectRepository = projectRepository;
         _gitRepository = gitRepository;
-        _dastRepository = dastRepository;
-        _sastRepository = sastRepository;
+
     }
     public async Task<CreateProjectResponse> Handle(CreateProjectRequest request, CancellationToken cancellationToken = default)
     {
         try
         {
+            var existis = this._projectRepository.GetByName(request.Name);
 
-            var sast = new SastAnalisysEntity()
-            {
-                Id = 0,
-                Name = request.Name,
-                UrlBase = request.ApiSast,
-                User = request.UserSast,
-                Password = request.PasswordSast,
-                Token = "",
-                CreatedAt = DateTime.Now,
-                Languages = request.Language,
-                Description = request.Description
-            };
-            var dast = new DastAnalysisEntity()
-            {
-                Id = 0,
-                Name = request.Name,
-                UrlDast = request.UrlDast,
-                UserDast = request.UserDast
-            };
-            var repo = new RepoEntity()
-            {
-                Branch = request.BranchGit,
-                Url = request.UrlGit,
-                Id = 0,
-                UserEmail = request.EmailRepository,
-                Name = request.Name,
-                UserName = request.UserRepository,
-                Commits = new List<RepoCommitEntity>()
-            };
             var project = new ProjectEntity()
             {
-                Id = 0,
+                Id = Guid.NewGuid().ToString(),
                 Name = request.Name,
                 Description = request.Description,
-                Path = Path.Combine(Path.GetTempPath(), request.Name),
-                Repository = repo,
-                Dast = dast,
-                Sast = sast
-            };
-
-
-            var path = Path.Combine(Path.GetTempPath(), request.Name);
-            var pathrepository = _gitRepository.Clone(request.UrlGit, request.BranchGit, path);
-            _gitRepository.Pull(pathrepository, request.UserRepository, request.EmailRepository);
-            var t = _gitRepository.HistoryCommit(request.BranchGit, path).GetAsyncEnumerator();
-            var commits = new List<RepoCommitEntity>();
-            while (await t.MoveNextAsync())
-            {
-                commits.Add(new RepoCommitEntity()
+                CreatedAt = DateTime.Now,
+                LastUpdate = DateTime.Now,
+                DockerfileMultiStage = request.DockerfileMultiStage,
+                DastApis = request.DastApis,
+                DastGraphql = request.DastGraphql,
+                DastUIurl = request.DastUIurl,
+                Repository = new RepoEntity()
                 {
-                    Id = 0,
-                    Message = t.Current.Message,
-                    Date = t.Current.Date,
-                    Author = t.Current.Author,
-                    Email = t.Current.Email,
-                    Files = t.Current.Files,
-                    Sha = t.Current.Sha,
-                    Status = t.Current.Status
-                });
+                    Url = request.UrlGit,
+                    Branch = request.BranchGit,
+                    CreatedAt = DateTime.Now,
+                    LastUpdate = DateTime.Now,
+                    Id = Guid.NewGuid().ToString(),
+                    Name = request.Name,
+                    Token = request.TokenRepository,
+                    UserEmail = request.EmailRepository,
+                    UserName = request.UserRepository,
+                    Path = Path.Combine(Environment.CurrentDirectory, "data/repositories", request.Name),
+                }
+            };
+            var tokenSast = await this._projectRepository.CreateSastToken(project.Name, project.Name, project.Name, project.Repository.Branch);
+            project.TokenSast = tokenSast ?? "";
+
+            if (existis != null)
+            {
+                project.Id = existis.Id;
+                project.Repository.Id = existis.Repository?.Id ?? project.Repository.Id;
+                await this._projectRepository.Update(project, cancellationToken);
             }
-            project.Repository.Commits = commits;
-            var token = await _sastRepository.CreateIntegrationProject(sast);
-            project.Sast.Token = token;
-            await _projectRepository.Create(project);
+            else
+            {
+                await this._projectRepository.Create(project, cancellationToken);
+            }
+            await CloneRepository(project, request, cancellationToken);
+            await rundiff(project, request, cancellationToken);
             return new CreateProjectResponse(project.Id);
         }
         catch (Exception e)
         {
             throw new Exception(e.Message);
         }
+    }
+    private async Task CloneRepository(ProjectEntity project, CreateProjectRequest request, CancellationToken cancellationToken)
+    {
+
+        if (project.Repository == null)
+        {
+            throw new Exception("entity repository not exists");
+        }
+        var path = project.Repository.Path;
+        var pathrepository = _gitRepository.Clone(request.UrlGit, request.BranchGit, path, request.UserRepository, request.TokenRepository);
+    }
+    private async Task rundiff(ProjectEntity project, CreateProjectRequest request, CancellationToken cancellationToken)
+    {
+        if (project.Repository == null)
+        {
+            throw new Exception("entity repository not exists");
+        }
+        var diff = this._gitRepository.AllDiff(project.Repository.Path, request.BranchGit, project.Name, project.Id).ToList();
+        await _gitRepository.DiffSaveAsync(diff, cancellationToken);
     }
 }

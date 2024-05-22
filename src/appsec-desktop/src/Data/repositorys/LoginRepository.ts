@@ -2,18 +2,23 @@ import type { IApiRequest } from "../../Domain/interfaces/IContexts/IContext";
 import { inject, injectable } from "tsyringe";
 import ILoginRepository from "../../Domain/interfaces/IRepositories/ILoginRepository";
 import type IContext from "../../Domain/interfaces/IContexts/IContext";
-import Store from "../stores/Store";
 
 @injectable()
 class LoginRepository implements ILoginRepository {
-    constructor(@inject("IContext") private driver: IContext, @inject("store") private store: Store) {}
+    constructor(@inject("IContext") private driver: IContext) {}
 
 
 
     login = async (username: string, password: string): Promise<string> => {
-        let query = {"query": `mutation{login(user:"${username}",pass:"${password}")}`};
+        let query = {"query": `
+        mutation {
+            login(logIn: { userLogin: "${username}", password: "${password}" }) {
+              token
+            }
+          }
+        `};
 
-        let url = new URL("/graphql",this.store.baseUrlBackend)
+        let url = new URL("/graphql","https://localhost:5081/graphql/")
         let request: IApiRequest<any> = {
             url: url.toString(),
             body: query,
@@ -22,9 +27,9 @@ class LoginRepository implements ILoginRepository {
             }
         }
 
-        let { status, data } = await this.driver.Api.post<string, {data: {login: string};}>(request);
+        let { status, data } = await this.driver.Api.post<string, {data: {login: {token: string}};}>(request);
         if (status >= 200 && status < 400) {
-            return data.data.login;
+            return data.data.login.token;
         }
         else {
             throw new Error("Error on authenticate");

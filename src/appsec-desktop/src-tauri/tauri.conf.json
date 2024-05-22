@@ -1,7 +1,7 @@
 {
     "productName": "appsec-client",
     "version": "0.0.1",
-    "identifier": "com.tauri.dev",
+    "identifier": "com.vultureofpix.dev",
     "build": {
         "beforeDevCommand": "npm run dev",
         "devUrl": "http://localhost:1420",

@@ -1,16 +1,14 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace AppSec.Domain.Entities;
 
-public class ProjectEntity
+public class ProjectEntity : EntityBase
 {
-    [Key]
-    public required int Id { get; set; }
     public required string Name { get; set; }
     public required string Description { get; set; }
-    public required string Path { get; set; }
-    public virtual RepoEntity Repository { get; set; }
-    public virtual SastAnalisysEntity? Sast { get; set; }
-    public virtual DastAnalysisEntity? Dast { get; set; }
+    public virtual RepoEntity? Repository { get; set; }
+    public string TokenSast { get; set; }
+    public string DockerfileMultiStage { get; set; }
+    public IList<string> DastApis { get; set; }
+    public IList<string> DastGraphql { get; set; }
+    public IList<string> DastUIurl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 }

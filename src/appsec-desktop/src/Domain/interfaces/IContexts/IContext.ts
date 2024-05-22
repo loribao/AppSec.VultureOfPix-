@@ -32,6 +32,5 @@ export interface IStorage {
 }
 
 export default interface IContext {
-    Api: IApi;
-    Store: IStorage;
+    Api: IApi
 }

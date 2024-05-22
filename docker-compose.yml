@@ -5,11 +5,25 @@ services:
       context: .
       dockerfile: src/appsec-server/AppSec/Dockerfile
     ports:
-      - "5080:8080"
-      - "5081:8081"
+      - "5080:5080"
+      - "5081:5081"
     environment:
       - ADMIN_HASH=${ADMIN_HASH}
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+    volumes:
+      - ./setup/local/data/appsec:/app/data
+    networks:
+      - appsec_network
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+        - 27017:27017
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - ./setup/local/data/mongo:/data/db:rw
     networks:
       - appsec_network
 

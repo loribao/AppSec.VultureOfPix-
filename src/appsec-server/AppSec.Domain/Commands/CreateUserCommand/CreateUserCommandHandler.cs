@@ -1,11 +1,6 @@
 using AppSec.Domain.Entities;
 using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppSec.Domain.Commands.CreateUserCommand
 {
@@ -32,9 +27,9 @@ namespace AppSec.Domain.Commands.CreateUserCommand
             };
             await _userRepository.AddAsync(usr);
             return new CreateUserResponse()
-            {                
-                Login=usr.UserLogin,
-                Role=usr.Role
+            {
+                Login = usr.UserLogin,
+                Role = usr.Role
             };
         }
     }

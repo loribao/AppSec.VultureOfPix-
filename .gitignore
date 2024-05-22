@@ -6,16 +6,15 @@ scripts
 docs/.*
 dist
 dist/**
-appsec-desktop-*
 **/bin
 **/obj
 **/.idea
 docs/proposal/.~lock.Atualização Vulture.odt#
-/.vs/appsec/v17
-/.vs/appsec
 .vs
 .idea
 .database
 .temp
 fleet*
-data/*
+.env
+docs/HtmlView
+docs/html-docs

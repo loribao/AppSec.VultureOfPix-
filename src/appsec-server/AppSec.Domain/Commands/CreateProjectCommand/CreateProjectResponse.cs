@@ -1,3 +1,3 @@
 namespace AppSec.Domain.Commands.CreateProjectCommand;
 
-public record CreateProjectResponse(int Id);
+public record CreateProjectResponse(string Id);

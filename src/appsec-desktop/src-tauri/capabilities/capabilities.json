@@ -10,14 +10,14 @@
     {
       "identifier": "http:default",
       "allow": [
-        "http://localhost:5048/graphql"
+        "https://localhost:5081/graphql"
       ],
       "deny": []
     },
     {
       "identifier": "http:allow-fetch",
       "allow": [
-        "http://localhost:5048/graphql"
+        "https://localhost:5081/graphql"
       ],
       "deny": []
     },

@@ -7,7 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AppSec.Domain\AppSec.Domain.csproj" />
-      <ProjectReference Include="..\AppSec.Infra\AppSec.Infra.csproj" />
-    </ItemGroup>    
+        <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.27.1" />
+        <PackageReference Include="Elastic.Apm.SerilogEnricher" Version="8.11.0" />
+        <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.13.12" />
+        <PackageReference Include="Elastic.CommonSchema.Serilog" Version="8.11.0" />
+        <PackageReference Include="Elastic.Extensions.Logging" Version="8.11.0" />
+        <PackageReference Include="Serilog" Version="3.1.1" />
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
+        <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AppSec.Domain\AppSec.Domain.csproj" />
+        <ProjectReference Include="..\AppSec.Infra\AppSec.Infra.csproj" />
+    </ItemGroup>
 </Project>

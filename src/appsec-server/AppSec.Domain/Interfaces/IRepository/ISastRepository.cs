@@ -1,10 +1,10 @@
-﻿using AppSec.Domain.Entities;
+using AppSec.Domain.DTOs;
+using AppSec.Domain.Entities;
 
 namespace AppSec.Domain.Interfaces.IRepository;
 
-public interface ISastRepository
+public interface ISastRepository : IRepositoryBase<SastAnalisysEntity>
 {
-    Task<string> CreateIntegrationProject(SastAnalisysEntity project);
-    Task RunAnalysis(int id, string token);
-    Task SyncAnalysis(int id);
+    Task SyncAnalysis(string projectName, CancellationToken cancellation = default);
+    IQueryable<SastMesuaresComponentTreeDTO> GetMesuaresQueryable();
 }

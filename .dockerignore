@@ -1,7 +1,7 @@
 **/.classpath
 **/.dockerignore
 **/.env
-**/.git
+#**/.git
 **/.gitignore
 **/.project
 **/.settings
@@ -22,15 +22,17 @@
 **/values.dev.yaml
 LICENSE
 README.md
-!**/.gitignore
-!.git/HEAD
-!.git/config
-!.git/packed-refs
-!.git/refs/heads/**
+# !**/.gitignore
+# !.git/HEAD
+# !.git/config
+# !.git/packed-refs
+# !.git/refs/heads/**
 
 **/node_modules
 **/**/node_modules
+setup
 target
 bin
 obj
+**/bin
 .*

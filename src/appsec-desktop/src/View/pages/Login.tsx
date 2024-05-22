@@ -3,6 +3,7 @@ import loginimg from '../assets/img/Vulture_Art.svg'
 import './Login.css'
 import {container} from "tsyringe";
 import ILoginCommand from '../../Domain/interfaces/ICommands/ILoginCommand';
+import { createCodeSpace, createWindowAppSecGraphql } from '../../Data/contexts/Tray';
 export default function Index() {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
     const [login_txt,setLogin_txt] = useState('');
@@ -18,13 +19,17 @@ export default function Index() {
     const handlePassword = (e:  React.ChangeEvent<HTMLInputElement>) => {
         setPass_txt(e.target.value)
     }
-
+    const codeserver=async (_url:string, _pass: string)=>{
+        window.location.href = '/home'
+        createCodeSpace('');
+        createWindowAppSecGraphql('');
+    }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let res = await container.resolve<ILoginCommand>('ILoginCommand').Handler({username: login_txt, password: Pass_txt})
         console.log(login_txt,Pass_txt, "status: ", res.status)
         if(res.status === "success"){
-            window.location.href = "/projectPage"
+            await codeserver("http://localhost:8443","vscode")
         }
     }
     return (

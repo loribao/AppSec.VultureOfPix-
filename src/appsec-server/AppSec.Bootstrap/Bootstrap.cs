@@ -1,16 +1,22 @@
 using AppSec.Domain.Commands.CreateProjectCommand;
 using AppSec.Domain.Commands.CreateUserCommand;
+using AppSec.Domain.Commands.ExcludeProjectCommand;
 using AppSec.Domain.Commands.LogInCommand;
 using AppSec.Domain.Commands.StartDastCommand;
+using AppSec.Domain.Commands.StartRepositoryAnalysisCommand;
 using AppSec.Domain.Commands.StartSastCommand;
+using AppSec.Domain.Commands.SyncDastCommand;
+using AppSec.Domain.Commands.SyncSastCommand;
 using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IDrivers;
 using AppSec.Domain.Interfaces.IRepository;
 using AppSec.Infra.Data.Consumers;
-using AppSec.Infra.Data.Context;
 using AppSec.Infra.Data.Drivers;
 using AppSec.Infra.Data.Repository;
+using AppSec.Infra.Data.Works;
 using AppSec.Infra.Web.Graphql;
+using AppSec.Infra.Web.Rest;
+using Elastic.Apm.NetCoreAll;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -19,8 +25,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using System.Text;
-
-
 namespace AppSec.Bootstrap;
 
 public static class Register
@@ -29,8 +33,14 @@ public static class Register
     public static IServiceCollection ExtendServicesBootStrap(this IServiceCollection Services, IConfiguration configuration)
     {
         var paths = configuration.GetRequiredSection("paths");
-        var enckey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY") ?? throw new Exception("not key secret");
-
+        var enckey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY") ?? "";
+        if (string.IsNullOrEmpty(enckey))
+        {
+            enckey = configuration.GetSection("Server:ENCRYPTION_KEY").Value ?? throw new ArgumentNullException("ENCRYPTION_KEY");
+        }
+        Services.AddElasticApm();
+        Services.AddElasticApmForAspNetCore();
+        Services.AddAllElasticApm();
         Services.AddAuthentication(
            x =>
            {
@@ -52,19 +62,12 @@ public static class Register
         Services.AddAuthorization(options =>
         {
             options.AddPolicy("default", policy => policy.RequireRole("default"));
-        });
-        Services.AddSingleton<ContextAppSec>(options =>
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<ContextAppSec>();
-            var paths = configuration.GetRequiredSection("paths");
-            optionsBuilder.UseSqlite($"Data Source={GetDatabasePath(paths.GetSection("database").Value ?? "appsec.sqlite")}", b =>
-            {
-                b.MigrationsAssembly("AppSec.Infra");
-            });
-            return new ContextAppSec(optionsBuilder.Options);
+            options.AddPolicy("admin", policy => policy.RequireRole("admin"));
         });
         Services.AddScoped<IMongoDatabase>(x => new MongoClient(configuration.GetConnectionString("DefaultConnection")).GetDatabase("AppSec"));
         Services.AddScoped<ILanguageDriverSast, LanguageDriverSast>();
+        Services.AddScoped<ISyncExternalRepository, SyncExternalRepository>();
+        Services.AddScoped<IContainerRepository, DockerRepository>();
         Services.AddScoped<IUserRepository, UserRepository>();
         Services.AddScoped<IProjectRepository, ProjectRepository>();
         Services.AddScoped<IGitRepository, GitRepository>();
@@ -75,7 +78,10 @@ public static class Register
         Services.AddScoped<IStartDastCommandHandler, StartDastCommandHandler>();
         Services.AddScoped<ILogInCommandHandler, LogInCommandHandler>();
         Services.AddScoped<ICreateUserCommandHandler, CreateUserCommandHandler>();
-
+        Services.AddScoped<IExcludeProjectCommandHandler, ExcludeProjectCommandHandler>();
+        Services.AddScoped<IStartRepositoryAnalysisHandler, StartRepositoryAnalysisHandler>();
+        Services.AddScoped<ISyncSastHandler, SyncSastHandler>();
+        Services.AddScoped<ISyncDastHandler, SyncDastHandler>();
         Services.AddMassTransit(x =>
          {
              x.AddConsumer<LogInConsumer>(cfg =>
@@ -93,11 +99,23 @@ public static class Register
              });
              x.AddConsumer<StartDastConsumer>(cfg =>
              {
-                    cfg.UseConcurrentMessageLimit(10);
+                 cfg.UseConcurrentMessageLimit(10);
              });
              x.AddConsumer<StartSastConsumer>(cfg =>
              {
-                    cfg.UseConcurrentMessageLimit(10);
+                 cfg.UseConcurrentMessageLimit(10);
+             });
+             x.AddConsumer<StartRepositoryAnalysisConsumer>(x =>
+             {
+                 x.UseConcurrentMessageLimit(10);
+             });
+             x.AddConsumer<SyncSastConsumer>(x =>
+             {
+                 x.UseConcurrentMessageLimit(10);
+             });
+             x.AddConsumer<SyncDastConsumer>(x =>
+             {
+                 x.UseConcurrentMessageLimit(10);
              });
              x.UsingInMemory((context, cfg) =>
              {
@@ -110,6 +128,10 @@ public static class Register
             .AddQueryType<QueryRoot>()
             .AddMutationType<MutationRoot>()
             .AddFiltering();
+        Services.AddHostedService<GitWork>();
+        Services.AddHostedService<StastWork>();
+        Services.AddHostedService<DastWork>();
+        Services.AddHostedService<MainWork>();
         return Services;
     }
     public static WebApplication ExtendWebApplicationBootStrap(this WebApplication app)
@@ -117,15 +139,9 @@ public static class Register
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapGraphQL();
+        app.WebHooks();
+        
         return app;
     }
-    private static string GetDatabasePath(string _path, string name = "appsec.sqlite")
-    {
-        var fullpath = Path.GetFullPath(_path);
-        if (!Directory.Exists(fullpath))
-        {
-            Directory.CreateDirectory(fullpath);
-        }
-        return Path.GetFullPath(Path.Combine(fullpath, name));
-    }
+    
 }

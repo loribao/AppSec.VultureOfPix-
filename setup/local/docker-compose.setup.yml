@@ -11,18 +11,6 @@ services:
       - ./data/zap:/zap/wrk/:rw
     networks:
       - appsec_network
-  mongo:
-    image: mongo
-    restart: always
-    ports:
-        - 27017:27017
-    environment:
-        MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-    volumes:
-      - ./data/mongo:/data/db:z
-    networks:
-      - appsec_network
 
   mongo-express:
     image: mongo-express
@@ -43,8 +31,10 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - ./data/postgresql:/var/lib/postgresql:z
+      - ./data/postgresql:/var/lib/postgresql:rw
       - ./data/postgresql_data:/var/lib/postgresql/data:rw
+    ports:
+        - "5432:5432"
     networks:
       - appsec_network
 
@@ -57,14 +47,34 @@ services:
       SONAR_JDBC_USERNAME: ${POSTGRES_USER}
       SONAR_JDBC_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - ./data/sonarqube_data:/opt/sonarqube/data:z
-      - ./data/sonarqube_extensions:/opt/sonarqube/extensions:z
-      - ./data/sonarqube_logs:/opt/sonarqube/logs:z
+      - ./data/sonarqube_data:/opt/sonarqube/data:rw
+      - ./data/sonarqube_extensions:/opt/sonarqube/extensions:rw
+      - ./data/sonarqube_logs:/opt/sonarqube/logs:rw
     ports:
       - "9000:9000"
     networks:
       - appsec_network
-
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    #  - PASSWORD=vscode
+    #   - HASHED_PASSWORD=vscode
+      - SUDO_PASSWORD=vscode
+    #  - SUDO_PASSWORD_HASH=vscode
+      #- PROXY_DOMAIN=code-server.my.domain #optional
+      #- DEFAULT_WORKSPACE=/config/workspace #optional
+    volumes:
+      - ./data/code_server/appdata/config:/config
+      - ./data/appsec/repositories:/config/workspace/sources:rw
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+    networks:
+      - appsec_network
 #########################################################################
   setup:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
@@ -136,7 +146,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     volumes:
       - ./certs:/usr/share/elasticsearch/config/certs
-      - ./data/esdata:/usr/share/elasticsearch/data:z
+      - ./data/esdata:/usr/share/elasticsearch/data:rw
     ports:
       - ${ES_PORT}:9200
     environment:
@@ -183,7 +193,7 @@ services:
     volumes:
       - ./certs:/usr/share/kibana/config/certs
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
-      - ./data/kibanadata:/usr/share/kibana/data:z
+      - ./data/kibanadata:/usr/share/kibana/data:rw
     ports:
       - ${KIBANA_PORT}:5601
     environment:
@@ -265,7 +275,6 @@ services:
       retries: 120
     networks:
       - appsec_network
-
 #########################################################################
 networks:
     appsec_network:

@@ -1,4 +1,4 @@
-import IContext, { IApi } from "../../Domain/interfaces/IContexts/IContext";
+import IContext, { IApi, IStorage } from "../../Domain/interfaces/IContexts/IContext";
 import TauriDriver from "../drivers/TauriDriver";
 import WebDriver from "../drivers/WebDriver";
 

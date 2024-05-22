@@ -4,11 +4,11 @@ services:
   appsec:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_HTTP_PORTS=5080
+      - ASPNETCORE_HTTPS_PORTS=5081
     ports:
-      - "5080:8080"
-      - "5081:8081"
+      - "5080:5080"
+      - "5081:5081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

@@ -1,3 +1,3 @@
 [workspace]
-members = ["src/appsec-desktop/src-tauri"]
+members = ["src/appsec-desktop/src-tauri", "src/appsec-utils"]
 resolver = "2"

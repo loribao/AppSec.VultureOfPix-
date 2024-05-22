@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "build:tsc": "tsc",
     "preview": "vite preview",
     "tauri": "tauri",
     "tauri:dev": "tauri dev"

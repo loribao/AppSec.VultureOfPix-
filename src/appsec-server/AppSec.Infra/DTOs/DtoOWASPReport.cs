@@ -1,7 +1,10 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Text.Json.Serialization;
 namespace AppSec.Infra.DTos;
 public class Alert
 {
+    [BsonRepresentation(BsonType.ObjectId)]
     [JsonPropertyName("pluginid")]
     public string pluginid { get; set; }
 

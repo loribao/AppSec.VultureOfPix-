@@ -17,6 +17,12 @@
           "user-select"
         ]
       }
+    ],
+    "axe/text-alternatives": [
+      "default",
+      {
+        "frame-title": "off"
+      }
     ]
   }
 }

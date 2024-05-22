@@ -8,18 +8,14 @@ import type IStoreRepository from "../../interfaces/IRepositories/IStoreReposito
 @injectable()
 class LoginCommand implements ILoginCommand {
 
-    constructor(@inject("ILoginRepository") private loginRepository: ILoginRepository, @inject("IStoreRepository") private storeRepository: IStoreRepository) {
+    constructor(@inject("ILoginRepository") private loginRepository: ILoginRepository) {
     }
     public async Handler(request: LoginRequest): Promise<LoginResponse> {
         //call to API
         let token = await this.loginRepository.login(request.username, request.password);
         //save token
         if (token.length > 0) {
-            await this.storeRepository.insert({
-                key: "token",
-                value: token,
-                id: 0
-            });
+            localStorage.setItem("token", token);
             return new LoginResponse("success");
         }
         else

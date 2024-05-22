@@ -1,4 +1,4 @@
-﻿namespace AppSec.Domain.Interfaces.ICommands;
+namespace AppSec.Domain.Interfaces.ICommands;
 
 public interface IHandlerBase<TRequest, TResponse>
 {

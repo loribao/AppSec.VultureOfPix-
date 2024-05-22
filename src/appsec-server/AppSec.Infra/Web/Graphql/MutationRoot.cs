@@ -2,8 +2,8 @@ using AppSec.Domain.Commands.CreateProjectCommand;
 using AppSec.Domain.Commands.CreateUserCommand;
 using AppSec.Domain.Commands.LogInCommand;
 using AppSec.Domain.Commands.StartDastCommand;
+using AppSec.Domain.Commands.StartRepositoryAnalysisCommand;
 using AppSec.Domain.Commands.StartSastCommand;
-using AppSec.Domain.Interfaces.IRepository;
 using HotChocolate.Authorization;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
@@ -24,30 +24,36 @@ namespace AppSec.Infra.Web.Graphql
 
             return resp.Message;
         }
-        [AllowAnonymous]
+        [Authorize("admin")]
         public async Task<CreateUserResponse> CreateUser(CreateuserRequest createuser, [FromServices] IBus bus, CancellationToken cancellation)
         {
             var response = await bus.CreateRequestClient<CreateuserRequest>().GetResponse<CreateUserResponse>(createuser, cancellation);
             return response.Message;
         }
+        [Authorize("admin")]
+        public async Task<string> CreateProject(CreateProjectRequest request, [FromServices] IBus bus, CancellationToken cancellation)
+        {
+            await bus.Publish(request, cancellation);
+            return "await ...";
+        }
+        [Authorize("admin")]
+        public async Task<string> StartDast(StartDastRequest request, [FromServices] IBus bus, CancellationToken cancellation)
+        {
+            await bus.Publish(request, cancellation);
+            return "await ...";
+        }
+        [Authorize("admin")]
+        public async Task<string> StartSast(StartSastRequest request, [FromServices] IBus bus, CancellationToken cancellation)
+        {
+            await bus.Publish(request, cancellation);
+            return "await ...";
+        }
 
         [Authorize("admin")]
-        public async Task<CreateProjectResponse> CreateProject(CreateProjectRequest project, [FromServices] IBus bus, CancellationToken cancellation)
+        public async Task<string> StartDiffRepository(StartRepositoryAnalysisRequest request, [FromServices] IBus bus, CancellationToken cancellation)
         {
-            var response = await bus.CreateRequestClient<CreateProjectRequest>().GetResponse<CreateProjectResponse>(project, cancellation);
-            return response.Message;
-        }
-        [Authorize("admin")]
-        public async Task<StartDastResponse> StartDast(StartDastRequest project, [FromServices] IBus bus, CancellationToken cancellation)
-        {
-            var response = await bus.CreateRequestClient<StartDastRequest>().GetResponse<StartDastResponse>(project, cancellation);
-            return response.Message;
-        }
-        [Authorize("admin")]
-        public async Task<StartSastResponse> StartSast(StartSastRequest project, [FromServices] IBus bus, CancellationToken cancellation)
-        {
-            var response = await bus.CreateRequestClient<StartSastRequest>().GetResponse<StartSastResponse>(project, cancellation);
-            return response.Message;
+            await bus.Publish(request, cancellation);
+            return "await ...";
         }
     }
 }

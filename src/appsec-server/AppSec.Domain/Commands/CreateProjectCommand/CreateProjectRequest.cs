@@ -10,11 +10,12 @@ public record CreateProjectRequest
     public string BranchGit { get; set; }
     public string UserRepository { get; set; }
     public string EmailRepository { get; set; }
-    public string ApiSast { get; set; }
-    public string UserSast { get; set; }
-    public string PasswordSast { get; set; }
-    public string UrlDast { get; set; }
-    public string UserDast { get; set; }
-    public string PasswordDast { get; set; }
+    public string TokenRepository { get; set; }
     public Languages Language { get; set; } = Languages.CSharp;
+    public string version { get; set; }
+    public string DockerContextPath { get; set; }
+    public string DockerfileMultiStage { get; set; }
+    public IList<string>? DastApis { get; set; } = new List<string>();
+    public IList<string>? DastGraphql { get; set; } = new List<string>();
+    public IList<string> DastUIurl { get; set; }
 }
