@@ -6,6 +6,7 @@ using AppSec.Domain.Commands.StartRepositoryAnalysisCommand;
 using AppSec.Domain.Commands.StartSastCommand;
 using HotChocolate.Authorization;
 using MassTransit;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppSec.Infra.Web.Graphql

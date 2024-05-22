@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
         ),
     },
     {
-        path: "/projectPage",
+        path: "/",
         element: (
             <App>
                 <Projeto />
@@ -48,4 +48,5 @@ export const router = createBrowserRouter([
         ),
     },
 ]);
+
 

@@ -2,6 +2,10 @@ using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IRepository;
 
 namespace AppSec.Domain.Commands.StartDastCommand;
+using AppSec.Domain.Interfaces.ICommands;
+using AppSec.Domain.Interfaces.IRepository;
+
+namespace AppSec.Domain.Commands.StartDastCommand;
 
 public class StartDastCommandHandler : IStartDastCommandHandler
 {

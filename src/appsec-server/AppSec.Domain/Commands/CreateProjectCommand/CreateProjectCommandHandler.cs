@@ -2,12 +2,13 @@ using AppSec.Domain.Entities;
 using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IRepository;
 namespace AppSec.Domain.Commands.CreateProjectCommand;
+namespace AppSec.Domain.Commands.CreateProjectCommand;
 
 public class CreateProjectCommandHandler : ICreateProjectCommandHandler
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IGitRepository _gitRepository;
-    
+
     public CreateProjectCommandHandler(IProjectRepository projectRepository, IGitRepository gitRepository)
     {
         _projectRepository = projectRepository;

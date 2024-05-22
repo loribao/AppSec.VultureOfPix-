@@ -17,7 +17,7 @@ namespace AppSec.Infra.Data.Consumers
         public async Task Consume(ConsumeContext<CreateProjectRequest> context)
         {
             this.logger.LogDebug("Call CreateProjectConsumer.Consume");
-            var resp = await handler.Handle(context.Message);            
+            var resp = await handler.Handle(context.Message);
             await context.RespondAsync(resp);
         }
     }
