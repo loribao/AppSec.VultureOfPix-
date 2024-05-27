@@ -29,11 +29,9 @@ public class StartDastCommandHandler : IStartDastCommandHandler
 
             return new StartDastResponse(project.Id);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-
-            throw;
+            return new StartDastResponse("");
         }
-
     }
 }

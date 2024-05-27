@@ -94,7 +94,6 @@ public class Instance
     public string otherinfo { get; set; }
 }
 
-
 public class Site
 {
     public Site()
@@ -120,5 +119,4 @@ public class Site
     public List<Alert> alerts { get; set; }
     public string projectName { get; set; }
     public string projectId { get; set; }
-
 }

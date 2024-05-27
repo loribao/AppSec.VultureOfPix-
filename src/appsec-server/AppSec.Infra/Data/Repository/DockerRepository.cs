@@ -73,6 +73,7 @@ namespace AppSec.Infra.Data.Repository
                     while (!string.IsNullOrEmpty(line = sr.ReadLine()))
                     {
                         logger.LogInformation(line);
+                        Console.WriteLine(line);
                     }
                 }
 

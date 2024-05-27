@@ -7,13 +7,9 @@ using Microsoft.Extensions.Configuration;
 using AppSec.Domain.Entities;
 using AppSec.Domain.Interfaces.IRepository;
 using Microsoft.Extensions.DependencyInjection;
-using Amazon.Runtime.Internal.Util;
 using Microsoft.Extensions.Logging;
 using AppSec.Domain.DTOs;
-using Microsoft.AspNetCore.Http;
 using System.Globalization;
-using System.Collections.Generic;
-using Elastic.Clients.Elasticsearch.QueryDsl;
 
 namespace AppSec.Infra.Data.Works
 {
@@ -70,7 +66,7 @@ namespace AppSec.Infra.Data.Works
 
                             if (!searchResponse.Documents.Any(x=>x.Guid == guid))
                             {
-                                await client.IndexAsync(new Reports<List<DiffRepositoryDTO>>
+                                var report = new Reports<List<DiffRepositoryDTO>>
                                 {
                                     ProjectName = item.Name,
                                     ProjectId = item.Id,
@@ -78,7 +74,10 @@ namespace AppSec.Infra.Data.Works
                                     TypeAnalysis = "git",
                                     Guid = guid,
                                     Report = list,
-                                }, i => i.Index(index_git), stoppingToken);
+                                };
+                                await client.IndexAsync(report, i => i.Index(index_git), stoppingToken);
+
+                                await mongo.GetCollection<Reports<List<DiffRepositoryDTO>>>("ReportGit").InsertOneAsync(report);
                             }
                             else
                             {
@@ -86,8 +85,7 @@ namespace AppSec.Infra.Data.Works
                                 var hists = searchResponse.Hits.FirstOrDefault();
                                 if (cdif && hists != null)
                                 {
-                                    await client.DeleteAsync<Reports<List<DiffRepositoryDTO>>>(hists.Id, i => i.Index(index_git), stoppingToken);
-                                    await client.IndexAsync(new Reports<List<DiffRepositoryDTO>>
+                                    var report = new Reports<List<DiffRepositoryDTO>>
                                     {
                                         ProjectName = item.Name,
                                         ProjectId = item.Id,
@@ -95,7 +93,10 @@ namespace AppSec.Infra.Data.Works
                                         TypeAnalysis = "git",
                                         Guid = guid,
                                         Report = list,
-                                    }, i => i.Index(index_git), stoppingToken);
+                                    };
+                                    await client.DeleteAsync<Reports<List<DiffRepositoryDTO>>>(hists.Id, i => i.Index(index_git), stoppingToken);
+                                    await client.IndexAsync(report, i => i.Index(index_git), stoppingToken);
+                                    await mongo.GetCollection<Reports<List<DiffRepositoryDTO>>>("ReportGit").InsertOneAsync(report);
                                 }
                             }
                         }
@@ -111,7 +112,7 @@ namespace AppSec.Infra.Data.Works
                     foreach (var item in _projects)
                     {
                         this.logger.LogDebug($"Sync Elastic - Git Tree - Projec:{item.Name} Id:{item.Id}");
-                        var paging = sastRepository.GetMesuaresQueryable().Where(x => x.baseComponent.key.Equals(item.Name)).OrderByDescending(x => x.DateRun).Select(x => new { x.paging, x._guid }).FirstOrDefault();
+                        var paging = sastRepository.GetMesuaresQueryable().Where(x => x.baseComponent.key.Equals(item.Name)).OrderBy(x => x.DateRun).Select(x => new { x.paging, x._guid }).FirstOrDefault();
                         if (paging != null)
                         {
                             var totalPages = 1 + (int)Math.Ceiling((decimal)(paging.paging.total / paging.paging.pageSize));
@@ -127,9 +128,10 @@ namespace AppSec.Infra.Data.Works
                                                                                  .Match(m => m
                                                                                     .Field(f => f.Guid)
                                                                                     .Query(sast._guid))));
+                          
                                     if (!searchResponse.Documents.Any())
                                     {
-                                        await client.IndexAsync(new Reports<List<AppSec.Domain.DTOs.Component>>
+                                        var report = new Reports<List<AppSec.Domain.DTOs.Component>>
                                         {
                                             ProjectName = item.Name,
                                             ProjectId = item.Id,
@@ -137,7 +139,9 @@ namespace AppSec.Infra.Data.Works
                                             TypeAnalysis = "sast",
                                             Guid = sast._guid,
                                             Report = sast.components
-                                        }, i => i.Index(index_sast), stoppingToken);
+                                        };
+                                        await client.IndexAsync(report, i => i.Index(index_sast), stoppingToken);
+                                        await mongo.GetCollection<Reports<List<AppSec.Domain.DTOs.Component>>>("ReportSast").InsertOneAsync(report);
                                     }
                                 }
                             }
@@ -153,11 +157,11 @@ namespace AppSec.Infra.Data.Works
                 {
                     foreach (var item in _projects)
                     {
-                        var dast = dastRepository.GetOwaspRepots().Where(x => x.site.Any(x => x.projectName.Equals(item.Name))).OrderByDescending(x => x.generated).FirstOrDefault();
+                        var dast = dastRepository.GetOwaspRepots().Where(x => x.site.Any(x => x.projectName.Equals(item.Name))).OrderBy(x => x.generated).FirstOrDefault();
                         this.logger.LogDebug($"Sync Elastic - Dast Report - Projec:{item.Name} Id:{item.Id}");
                         if (dast != null)
                         {
-                            var searchResponse = await client.SearchAsync<Reports<List<AppSec.Domain.DTOs.Component>>>(s => s
+                            var searchResponse = await client.SearchAsync<Reports<List<AppSec.Domain.DTOs.Site>>>(s => s
                                                                                 .Query(q => q
                                                                                 .Match(m => m
                                                                                    .Field(f => f.Guid)
@@ -165,7 +169,7 @@ namespace AppSec.Infra.Data.Works
                             if (!searchResponse.Documents.Any())
                             {
                                 var dateAnalysis = DateTime.ParseExact(dast.generated, "ddd, dd MMM yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                                await client.IndexAsync(new Reports<List<AppSec.Domain.DTOs.Site>>
+                                var report = new Reports<List<AppSec.Domain.DTOs.Site>>
                                 {
                                     ProjectName = item.Name,
                                     ProjectId = item.Id,
@@ -173,7 +177,9 @@ namespace AppSec.Infra.Data.Works
                                     TypeAnalysis = "dast",
                                     Guid = dast.id,
                                     Report = dast.site
-                                }, i => i.Index(index_dast), stoppingToken);
+                                };
+                                await client.IndexAsync(report, i => i.Index(index_dast), stoppingToken);
+                                await mongo.GetCollection<Reports<List<AppSec.Domain.DTOs.Site>>>("ReportDast").InsertOneAsync(report);
                             }
                         }
                     }

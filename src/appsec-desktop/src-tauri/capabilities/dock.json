@@ -1,0 +1,25 @@
+{
+    "$schema": "../gen/schemas/desktop-schema.json",
+    "identifier": "dock-capability",
+    "description": "Capability for the dock window",
+    "windows": ["dock"],
+    "permissions": [ "menu:default",
+    "menu:allow-new",
+    "tray:default",
+    "tray:allow-get-by-id",
+    "tray:allow-set-title",
+    "tray:allow-set-show-menu-on-left-click",
+    "tray:allow-set-menu",
+    "tray:allow-set-icon-as-template",
+    "webview:allow-create-webview-window",
+    "shell:default",
+    "shell:allow-open",
+    "store:allow-get",
+    "store:allow-set",
+    "store:allow-save",
+    "store:allow-load",
+    "webview:allow-create-webview-window",
+    "shell:allow-open",
+    "window:default", "window:allow-start-dragging"]
+
+  }

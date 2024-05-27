@@ -42,6 +42,10 @@ public class StartSastCommandHandler : IStartSastCommandHandler
         {
             throw new Exception("Project not found");
         }
+        if (string.IsNullOrEmpty(project.DockerfileMultiStage))
+        {
+            return new StartSastResponse(project.Id);
+        }
         var token = JsonSerializer.Deserialize<TokenSastDto>(project.TokenSast);
         var target = new Dictionary<string, string>();
 

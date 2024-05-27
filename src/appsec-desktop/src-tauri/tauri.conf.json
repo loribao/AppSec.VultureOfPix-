@@ -18,6 +18,15 @@
                 "title": "App Sec",
                 "width": 600,
                 "height": 600
+            },
+            {
+                "label": "dock",
+                "title": "App Sec",
+                "decorations": false,
+                "width": 400,
+                "height": 120,
+                "url": "/dock",
+                "transparent": true
             }
         ],
         "trayIcon": {

@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppSec.Bootstrap", "src\app
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5CDB2C4C-2631-4323-961C-39A829F6BC28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSec.Aspire", "src\appsec-server\AppSec.Aspire\AppSec.Aspire.csproj", "{51314A42-45B4-4D38-8913-6E2904E14A58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{5CDB2C4C-2631-4323-961C-39A829F6BC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CDB2C4C-2631-4323-961C-39A829F6BC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CDB2C4C-2631-4323-961C-39A829F6BC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51314A42-45B4-4D38-8913-6E2904E14A58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51314A42-45B4-4D38-8913-6E2904E14A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51314A42-45B4-4D38-8913-6E2904E14A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51314A42-45B4-4D38-8913-6E2904E14A58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{26E168B6-1DA0-4863-ABAD-992B1E8197F0} = {DEAB85D9-0B5D-450D-8D07-620BCEC7FEF1}
 		{984F5985-2590-4823-8570-2C575416487A} = {DEAB85D9-0B5D-450D-8D07-620BCEC7FEF1}
 		{07CD4199-F72F-402F-B50C-4002FD500A44} = {DEAB85D9-0B5D-450D-8D07-620BCEC7FEF1}
+		{51314A42-45B4-4D38-8913-6E2904E14A58} = {DEAB85D9-0B5D-450D-8D07-620BCEC7FEF1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E172F754-1E2B-47D4-A762-5349A56F74D1}

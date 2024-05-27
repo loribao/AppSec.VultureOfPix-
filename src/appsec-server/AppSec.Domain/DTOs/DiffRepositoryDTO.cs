@@ -1,8 +1,12 @@
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
 namespace AppSec.Domain.DTOs
 {
     public class DiffRepositoryDTO
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
         public string ProjectName { get; set; }
         public string ProjectId { get; set; }
         public DateTime DateAnalysis { get; set; }

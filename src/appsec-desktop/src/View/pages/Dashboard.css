@@ -1,0 +1,17 @@
+.DashboardContainer{
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../assets/img/Vulture_Art.svg);
+}
+.offcanvas.collapsed {
+    width: 80px; /* Ajuste para a largura desejada */
+}
+.offcanvas.collapsed .offcanvas-header {
+    display: none; /* Esconde o cabeçalho quando a barra lateral está colapsada */
+}
+.DashboardContainer {
+    transition: margin-left .3s ease-out; /* Adiciona uma transição suave */
+}
+.DashboardContainer.collapsed {
+    margin-left: 80px; /* Ajuste para a largura da sua barra lateral colapsada */
+}

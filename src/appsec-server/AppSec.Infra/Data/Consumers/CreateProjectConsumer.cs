@@ -9,9 +9,10 @@ namespace AppSec.Infra.Data.Consumers
     {
         private readonly ICreateProjectCommandHandler handler;
         private readonly ILogger<CreateProjectConsumer> logger;
-        public CreateProjectConsumer(ICreateProjectCommandHandler handler)
+        public CreateProjectConsumer(ILogger<CreateProjectConsumer> logger, ICreateProjectCommandHandler handler)
         {
             this.handler = handler ?? throw new ArgumentNullException(nameof(handler));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task Consume(ConsumeContext<CreateProjectRequest> context)

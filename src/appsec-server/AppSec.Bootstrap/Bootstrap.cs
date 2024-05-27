@@ -11,6 +11,7 @@ using AppSec.Domain.Interfaces.ICommands;
 using AppSec.Domain.Interfaces.IDrivers;
 using AppSec.Domain.Interfaces.IRepository;
 using AppSec.Infra.Data.Consumers;
+using AppSec.Infra.Data.DataAcess.SonarQube.Provider;
 using AppSec.Infra.Data.Drivers;
 using AppSec.Infra.Data.Repository;
 using AppSec.Infra.Data.Works;
@@ -40,6 +41,7 @@ public static class Register
         Services.AddElasticApm();
         Services.AddElasticApmForAspNetCore();
         Services.AddAllElasticApm();
+        Services.AddHttpContextAccessor();
         Services.AddAuthentication(
            x =>
            {
@@ -63,7 +65,7 @@ public static class Register
             options.AddPolicy("default", policy => policy.RequireRole("default"));
             options.AddPolicy("admin", policy => policy.RequireRole("admin"));
         });
-        Services.AddScoped<IMongoDatabase>(x => new MongoClient(configuration.GetConnectionString("DefaultConnection")).GetDatabase("AppSec"));
+        Services.AddScoped<IMongoDatabase>(x => new MongoClient(configuration.GetConnectionString("DefaultConnection")).GetDatabase("AppSec"));        
         Services.AddScoped<ILanguageDriverSast, LanguageDriverSast>();
         Services.AddScoped<ISyncExternalRepository, SyncExternalRepository>();
         Services.AddScoped<IContainerRepository, DockerRepository>();
@@ -126,7 +128,11 @@ public static class Register
             .AddAuthorization()
             .AddQueryType<QueryRoot>()
             .AddMutationType<MutationRoot>()
-            .AddFiltering();
+            .AddFiltering()
+            .AddMongoDbFiltering()
+            .AddMongoDbPagingProviders()
+            .AddMongoDbProjections()
+            .AddMongoDbSorting();
         Services.AddHostedService<GitWork>();
         Services.AddHostedService<StastWork>();
         Services.AddHostedService<DastWork>();
@@ -139,7 +145,7 @@ public static class Register
         app.UseAuthorization();
         app.MapGraphQL();
         app.WebHooks();
-
+        app.UseStaticFiles();
         return app;
     }
 

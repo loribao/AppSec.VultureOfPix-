@@ -1,7 +1,6 @@
 #root,
 html,
 body {
-    font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--background-color-primary);
@@ -13,12 +12,10 @@ img {
 }
 
 a {
-    font-family: "Inter", sans-serif;
     font-weight: 600;
 }
 
 button {
-    font-family: "Inter", sans-serif;
     font-weight: 600;
 }
 
@@ -47,3 +44,27 @@ body::-webkit-scrollbar-thumb:hover {
     background: var(--contrast-color);
 }
 
+.input {
+    color: var(--color-title-two) !important;
+    background-color: var(--background-color-primary) !important;
+    border-color:  var(--border-box-primary) !important;
+    box-shadow: var(--border-box-primary) !important;
+    border-radius: 6px!important;
+    box-sizing: border-box !important;
+}
+
+.input:focus {
+    outline: none !important;
+    border-color: var(--background-color-quartenario) !important;
+    color: var( --color-title-five) !important;
+}
+
+.input::placeholder {
+    color: var(--color-title-one) !important;
+    position: absolute !important;
+    transition: transform 0.3s ease !important;
+}
+
+.input:focus::placeholder {
+    transform: translateY(-200%) !important;
+}

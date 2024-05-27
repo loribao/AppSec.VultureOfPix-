@@ -87,6 +87,7 @@ public class GitRepository : IGitRepository
                     var patches = repo.Diff.Compare<Patch>(parent.Tree, commit.Tree);
                     var _commit = new DiffRepositoryDTO()
                     {
+                        
                         ProjectId = projectId,
                         ProjectName = projectName,
                         OId = commit.Id.ToString(),
@@ -128,6 +129,7 @@ public class GitRepository : IGitRepository
                         _commit.diff.Add(_patch);
                     }
                     logger.LogInformation($"Id: {_commit.Id},Oid {_commit.OId}, ProjectName: {_commit.ProjectName}, Author: {_commit.NameAuthor}  {_commit.EmailAuthor} ");
+                    Console.WriteLine($"Id: {_commit.Id},Oid {_commit.OId}, ProjectName: {_commit.ProjectName}, Author: {_commit.NameAuthor}  {_commit.EmailAuthor} ");
                     yield return _commit;
                 }
             }
@@ -150,6 +152,7 @@ public class GitRepository : IGitRepository
         BatchSize = 1000,
         MaxAwaitTime = TimeSpan.FromHours(1),
         BypassDocumentValidation = true,
+        
     });
 
 }

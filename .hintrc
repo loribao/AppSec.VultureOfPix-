@@ -7,14 +7,16 @@
     "axe/forms": [
       "default",
       {
-        "label": "off"
+        "label": "off",
+        "select-name": "off"
       }
     ],
     "compat-api/css": [
       "default",
       {
         "ignore": [
-          "user-select"
+          "user-select",
+          "text-align: -webkit-match-parent"
         ]
       }
     ],

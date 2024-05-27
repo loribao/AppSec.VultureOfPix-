@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import loginimg from '../assets/img/Vulture_Art.svg'
 import './Login.css'
-import {container} from "tsyringe";
-import ILoginCommand from '../../Domain/interfaces/ICommands/ILoginCommand';
-import { createCodeSpace, createWindowAppSecGraphql } from '../../Data/contexts/Tray';
+import {  gql, useMutation } from '@apollo/client';
+
+const LOGIN_MUTATION = gql`
+  mutation Login($logIn: LogInAuthRequestInput!) {
+    login(logIn: $logIn) {
+      token
+    }
+  }
+`;
+
 export default function Index() {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
     const [login_txt,setLogin_txt] = useState('');
     const [Pass_txt,setPass_txt] = useState('');
     const [checked, setChecked] = useState(false);
+    const [loginMutation, { data }] = useMutation(LOGIN_MUTATION);
     const togglePasswordVisibility = () => {
         setPasswordVisible(!isPasswordVisible);
     };
@@ -19,18 +27,16 @@ export default function Index() {
     const handlePassword = (e:  React.ChangeEvent<HTMLInputElement>) => {
         setPass_txt(e.target.value)
     }
-    const codeserver=async (_url:string, _pass: string)=>{
-        window.location.href = '/home'
-        createCodeSpace('');
-        createWindowAppSecGraphql('');
-    }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let res = await container.resolve<ILoginCommand>('ILoginCommand').Handler({username: login_txt, password: Pass_txt})
-        console.log(login_txt,Pass_txt, "status: ", res.status)
-        if(res.status === "success"){
-            await codeserver("http://localhost:8443","vscode")
+        try {
+            const { data } = await loginMutation({ variables: { logIn: { userLogin: login_txt, password: Pass_txt } } });
+            localStorage.setItem('token', data.login.token);
+            window.location.href = '/Dashboard';
+        } catch (error) {
+            console.error("Erro ao fazer login:", error);
         }
+
     }
     return (
         <main className="mainLoginContainer">
@@ -47,7 +53,7 @@ export default function Index() {
             </section>
             <section className="rightSection">
                 <section className="rightSectionUm">
-                    <h1 className="titleUm">Bem-vindo ao AppSec!👋🏻</h1>
+                    <h1 className="titleUm">Bem-vindo ao AppSec!</h1>
                     <p className="paragrafo paragrafoPrincipal">
                         Faça login em sua!
                     </p>
@@ -105,3 +111,4 @@ export default function Index() {
         </main>
     );
 }
+

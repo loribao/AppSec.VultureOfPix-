@@ -1,4 +1,6 @@
+using Elastic.Apm.SerilogEnricher;
 using Elastic.CommonSchema;
+using Elastic.Serilog.Sinks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -21,16 +23,10 @@ public static class SerilogExtension
                                     .Enrich.FromLogContext()
                                     .Enrich.WithThreadId()
                                     .Enrich.WithMachineName()
-                                    .Enrich.WithProperty("Application", "AppSec")
-                                    .Enrich.WithProperty("Environment", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"))
-                                    .WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri(configuration["ElasticsearchSettings:NodeUris"]))
-                                    {
-                                        AutoRegisterTemplate = true,
-                                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv8,
-                                        IndexFormat = "appsec-{0:yyyy.MM.dd}",
-                                        CustomFormatter = new Serilog.Formatting.Elasticsearch.ElasticsearchJsonFormatter(renderMessage: true, inlineFields: true)
-                                    })
-                                    .WriteTo.Console()
+                                    .Enrich.WithProperty("Application", "AppSec")                                    
+                                    .Enrich.WithElasticApmCorrelationInfo()
+                                    .WriteTo.ElasticCloud(configuration.GetSection("ElasticsearchSettings:CloudId").Value??"", configuration.GetSection("ElasticsearchSettings:ApiKey").Value??"")
+                                    .WriteTo.Console()                                                                      
                                     .CreateLogger(); 
     }
 }

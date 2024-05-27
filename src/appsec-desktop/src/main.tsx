@@ -1,23 +1,22 @@
 import "reflect-metadata";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./View/routes";
-import Registry from "./Data/bootstraps/Registry";
-import createTray from "./Data/contexts/Tray"
-const setup = async () => {
-    const _registre = new Registry();
-    if(_registre){
-        console.log("Registry created")
+import { Router } from "./View/routes";
+import "./styles.css";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+const client = new ApolloClient({
+    uri: (new URL("/graphql", "https://localhost:5081")).toString(),
+    cache: new InMemoryCache(),
+    headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token"),
     }
-    if(await createTray()){
-        console.log("Tray created")
-    }
-}
-setup();
+  });
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <React.StrictMode>
+        <ApolloProvider client={client}>
+                <Router />
+        </ApolloProvider>
+    </React.StrictMode>,
 );

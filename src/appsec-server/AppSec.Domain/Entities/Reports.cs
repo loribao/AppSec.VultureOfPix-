@@ -1,3 +1,5 @@
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,8 @@ namespace AppSec.Domain.Entities
 {
     public class Reports<T>
     {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string id { get; set; }
        public string ProjectName { get; set; }
        public string ProjectId { get; set; }
        public DateTime DateAnalysis { get; set; }

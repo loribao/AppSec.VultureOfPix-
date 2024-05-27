@@ -1,52 +1,18 @@
-import { createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import App from "./App";
-import Projeto from "./pages/Projects";
-import MyProfile from "./pages/MyProfile";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import MenuDock from "./pages/MenuDock";
 
-export const router = createBrowserRouter([
-    {
-        path: "/login",
-        element: (
-            <App>
-                <Login />
-            </App>
-        ),
-    },
-    {
-        path: "/myprofile",
-        element: (
-            <App>
-                <MyProfile />
-            </App>
-        ),
-    },
-    {
-        path: "/",
-        element: (
-            <App>
-                <Projeto />
-            </App>
-        ),
-    },
+export const Router = () => {
 
-    {
-        path: "/home",
-        element: (
-            <App>
-                <Home />
-            </App>
-        ),
-    },
-    {
-        path: "/",
-        element: (
-            <App>
-                <Login />
-            </App>
-        ),
-    },
-]);
-
-
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/Dashboard" element={<Dashboard />} />
+                <Route path="/Login" element={<App><Login /></App>} />
+                <Route path="/Dock" element={<MenuDock />} />
+                <Route path="/" element={<App><Login /></App>} />
+            </Routes>
+        </BrowserRouter>)
+}
